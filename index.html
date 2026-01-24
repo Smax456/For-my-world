@@ -15,6 +15,48 @@ body{
   overflow-x:hidden;
 }
 
+/* ===== LOCK SCREEN ===== */
+#lock{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(180deg,#ff8fa3,#ffb3c6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.lock-frame{
+  text-align:center;
+  padding:40px 30px;
+  border-radius:30px;
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 45px rgba(255,255,255,.4);
+}
+
+.lock-heart{
+  font-size:90px;
+  cursor:pointer;
+  animation:pulse 1.6s infinite;
+  user-select:none;
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+}
+
+.lock-text{
+  margin-top:20px;
+  font-size:22px;
+}
+
+.tap-count{
+  margin-top:10px;
+  opacity:.85;
+}
+
 /* ===== SECTIONS ===== */
 .section{
   min-height:100vh;
@@ -42,11 +84,11 @@ body{
 }
 
 @keyframes breath{
-  0%,100%{box-shadow:0 0 38px rgba(255,255,255,.22), inset 0 0 26px rgba(255,255,255,.16)}
-  50%{box-shadow:0 0 56px rgba(255,255,255,.35), inset 0 0 36px rgba(255,255,255,.22)}
+  0%,100%{box-shadow:0 0 38px rgba(255,255,255,.22)}
+  50%{box-shadow:0 0 56px rgba(255,255,255,.35)}
 }
 
-/* ===== BUTTONS ===== */
+/* ===== BUTTON ===== */
 button{
   margin-top:30px;
   padding:14px 32px;
@@ -58,17 +100,16 @@ button{
   color:#ff4d6d;
   font-weight:bold;
   box-shadow:0 0 20px rgba(255,255,255,.6);
-  transition:transform .25s ease;
 }
 button:active{transform:scale(.95)}
 
-/* ===== TEXT & ANIMS ===== */
+/* ===== ANIMS ===== */
 .fade{animation:fadeIn 1.2s ease forwards}
 .slide{animation:slideUp 1.2s ease forwards}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes slideUp{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:translateY(0)}}
 
-/* ===== TYPING CURSOR ===== */
+/* ===== TYPING ===== */
 .cursor::after{
   content:"|";
   margin-left:4px;
@@ -76,29 +117,19 @@ button:active{transform:scale(.95)}
 }
 @keyframes blink{0%,50%,100%{opacity:1}25%,75%{opacity:0}}
 
-/* ===== LETTER ===== */
-.letter{
-  margin-top:20px;
-  font-size:20px;
-  line-height:1.75;
-}
+.letter{margin-top:20px;font-size:20px;line-height:1.75}
 
 /* ===== IMAGE ===== */
 .photo{
   width:260px;height:260px;
   border-radius:22px;
   object-fit:cover;
-  margin-bottom:18px;
   border:3px solid rgba(255,255,255,.45);
-  box-shadow:0 0 40px rgba(255,255,255,.9);
-  animation:photoGlow 3.5s ease-in-out infinite;
-}
-@keyframes photoGlow{
-  0%,100%{box-shadow:0 0 30px rgba(255,255,255,.75)}
-  50%{box-shadow:0 0 55px rgba(255,255,255,1)}
+  box-shadow:0 0 45px rgba(255,255,255,.9);
+  margin-bottom:20px;
 }
 
-/* ===== FLOATING HEARTS ===== */
+/* ===== HEARTS ===== */
 .heart{
   position:fixed;bottom:-20px;
   font-size:18px;opacity:.75;
@@ -108,25 +139,19 @@ button:active{transform:scale(.95)}
   from{transform:translateY(0)}
   to{transform:translateY(-120vh)}
 }
-
-/* ===== SPARKLES ===== */
-.sparkle{
-  position:fixed;
-  width:6px;height:6px;
-  background:white;
-  border-radius:50%;
-  opacity:.6;
-  animation:spark 2s linear infinite;
-}
-@keyframes spark{
-  0%{transform:scale(0);opacity:0}
-  50%{transform:scale(1);opacity:.8}
-  100%{transform:scale(0);opacity:0}
-}
 </style>
 </head>
 
 <body>
+
+<!-- 🔐 LOCK SCREEN -->
+<div id="lock">
+  <div class="lock-frame">
+    <div class="lock-heart" onclick="tapHeart()">❤️</div>
+    <div class="lock-text">Tap the heart 4 times 💖</div>
+    <div class="tap-count" id="count">0 / 4</div>
+  </div>
+</div>
 
 <!-- SECTION 1 -->
 <div class="section fade">
@@ -159,8 +184,8 @@ button:active{transform:scale(.95)}
 <div id="sec4" class="section hide">
   <div class="frame slide">
     <img src="jyoshna.jpg" class="photo">
-    <h2 class="fade">She’s more than beautiful 🌸</h2>
-    <h3 class="fade">She’s a feeling.</h3>
+    <h2>She’s more than beautiful 🌸</h2>
+    <h3>She’s a feeling.</h3>
     <button onclick="showSection('sec5')">One Last Thing 😌</button>
   </div>
 </div>
@@ -168,8 +193,8 @@ button:active{transform:scale(.95)}
 <!-- SECTION 5 -->
 <div id="sec5" class="section hide">
   <div class="frame fade">
-    <h1 class="fade">🎵 I Wanna Be Yours 🎵</h1>
-    <p class="fade" style="font-size:22px;margin-top:20px">
+    <h1>🎵 I Wanna Be Yours 🎵</h1>
+    <p style="font-size:22px;margin-top:20px">
       In patience.<br>In care.<br>In silence.<br><br>
       Happy Valentine’s Day, Jyoshna ❤️
     </p>
@@ -179,6 +204,18 @@ button:active{transform:scale(.95)}
 <audio id="song" src="song.mp3"></audio>
 
 <script>
+/* ===== LOCK ===== */
+let taps=0;
+function tapHeart(){
+  taps++;
+  document.getElementById("count").textContent = taps+" / 4";
+  if(taps===4){
+    document.getElementById("lock").style.opacity="0";
+    setTimeout(()=>document.getElementById("lock").style.display="none",600);
+    startTyping();
+  }
+}
+
 /* ===== SHOW ===== */
 function showSection(id){
   const el=document.getElementById(id);
@@ -186,35 +223,34 @@ function showSection(id){
   el.scrollIntoView({behavior:"smooth"});
 }
 
-/* ===== MUSIC FADE-IN ===== */
+/* ===== MUSIC ===== */
 function playSong(){
   const a=document.getElementById("song");
-  a.volume=0; a.play();
-  let v=0; const fade=setInterval(()=>{
-    v+=0.02; a.volume=Math.min(v,.9);
-    if(v>=.9) clearInterval(fade);
+  a.volume=0;a.play();
+  let v=0;const f=setInterval(()=>{
+    v+=.02;a.volume=Math.min(v,.9);
+    if(v>=.9)clearInterval(f);
   },120);
 }
 
-/* ===== TYPING EFFECT ===== */
-function typeText(el,text,speed=45){
-  let i=0; el.textContent="";
+/* ===== TYPING ===== */
+function typeText(el,text,s=45){
+  let i=0;el.textContent="";
   const t=setInterval(()=>{
     el.textContent+=text[i++];
-    if(i>=text.length) clearInterval(t);
-  },speed);
+    if(i>=text.length)clearInterval(t);
+  },s);
 }
 
-/* INIT TYPING */
-typeText(document.getElementById("t1"),"Hey Jyoshna 💖");
-setTimeout(()=>typeText(document.getElementById("t2"),"Something gentle, just for you ✨",30),800);
-
-setTimeout(()=>{
-  typeText(document.getElementById("t3"),"This isn’t ordinary 🌙");
-  setTimeout(()=>typeText(document.getElementById("t4"),"It’s made slowly, carefully… with meaning.",28),700);
-},1800);
-
-const letterText=`Jyoshna,
+function startTyping(){
+  typeText(t1,"Hey Jyoshna 💖");
+  setTimeout(()=>typeText(t2,"Something gentle, just for you ✨",30),800);
+  setTimeout(()=>{
+    typeText(t3,"This isn’t ordinary 🌙");
+    setTimeout(()=>typeText(t4,"It’s made slowly, carefully… with meaning.",28),700);
+  },1600);
+  setTimeout(()=>{
+    typeText(letter,`Jyoshna,
 
 Some people don’t try to be special —
 their presence already feels different.
@@ -226,31 +262,19 @@ This isn’t about perfection.
 It’s about sincerity.
 And this… is sincere.
 
-Happy Valentine’s Day 💫`;
-
-setTimeout(()=>{
-  typeText(document.getElementById("letter"),letterText,28);
-},2600);
+Happy Valentine’s Day 💫`,28);
+  },2600);
+}
 
 /* ===== HEARTS ===== */
 setInterval(()=>{
   const h=document.createElement("div");
-  h.className="heart"; h.innerHTML="❤️";
+  h.className="heart";h.innerHTML="❤️";
   h.style.left=Math.random()*100+"vw";
   h.style.fontSize=(Math.random()*18+14)+"px";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),7000);
 },600);
-
-/* ===== SPARKLES ===== */
-setInterval(()=>{
-  const s=document.createElement("div");
-  s.className="sparkle";
-  s.style.left=Math.random()*100+"vw";
-  s.style.top=Math.random()*100+"vh";
-  document.body.appendChild(s);
-  setTimeout(()=>s.remove(),2000);
-},300);
 </script>
 
 </body>
