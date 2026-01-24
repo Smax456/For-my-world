@@ -6,115 +6,122 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(180deg, #ff9a9e, #fad0c4);
-  color: white;
-  overflow-x: hidden;
+body{
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(180deg,#ff9a9e,#fad0c4);
+  color:white;
+  overflow-x:hidden;
 }
 
 /* ===== SECTIONS ===== */
-.section {
-  min-height: 100vh;
-  padding: 30px 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.section{
+  min-height:100vh;
+  padding:28px 16px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
+.hide{display:none}
 
-.hide {
-  display: none;
-}
-
-/* ===== FRAME / CARD ===== */
-.frame {
-  max-width: 850px;
-  width: 100%;
-  padding: 35px 25px;
-  text-align: center;
-  border-radius: 26px;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(8px);
+/* ===== FRAME ===== */
+.frame{
+  max-width:860px;
+  width:100%;
+  padding:36px 26px;
+  text-align:center;
+  border-radius:28px;
+  background:rgba(255,255,255,.14);
+  backdrop-filter:blur(10px);
+  border:2px solid rgba(255,255,255,.28);
   box-shadow:
-    0 0 40px rgba(255,255,255,0.25),
-    inset 0 0 25px rgba(255,255,255,0.15);
-  border: 2px solid rgba(255,255,255,0.25);
+    0 0 40px rgba(255,255,255,.25),
+    inset 0 0 30px rgba(255,255,255,.18);
+  animation:breath 4s ease-in-out infinite;
+}
+
+@keyframes breath{
+  0%,100%{box-shadow:0 0 38px rgba(255,255,255,.22), inset 0 0 26px rgba(255,255,255,.16)}
+  50%{box-shadow:0 0 56px rgba(255,255,255,.35), inset 0 0 36px rgba(255,255,255,.22)}
 }
 
 /* ===== BUTTONS ===== */
-button {
-  margin-top: 30px;
-  padding: 14px 32px;
-  font-size: 18px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  background: white;
-  color: #ff4d6d;
-  font-weight: bold;
-  box-shadow: 0 0 20px rgba(255,255,255,0.6);
-  transition: transform 0.25s ease;
+button{
+  margin-top:30px;
+  padding:14px 32px;
+  font-size:18px;
+  border-radius:30px;
+  border:none;
+  cursor:pointer;
+  background:white;
+  color:#ff4d6d;
+  font-weight:bold;
+  box-shadow:0 0 20px rgba(255,255,255,.6);
+  transition:transform .25s ease;
 }
+button:active{transform:scale(.95)}
 
-button:active {
-  transform: scale(0.95);
-}
+/* ===== TEXT & ANIMS ===== */
+.fade{animation:fadeIn 1.2s ease forwards}
+.slide{animation:slideUp 1.2s ease forwards}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
 
-/* ===== ANIMATIONS ===== */
-.fade {
-  animation: fadeIn 1.3s ease forwards;
+/* ===== TYPING CURSOR ===== */
+.cursor::after{
+  content:"|";
+  margin-left:4px;
+  animation:blink 1s infinite;
 }
-
-.slide {
-  animation: slideUp 1.3s ease forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(35px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes blink{0%,50%,100%{opacity:1}25%,75%{opacity:0}}
 
 /* ===== LETTER ===== */
-.letter {
-  margin-top: 20px;
-  font-size: 20px;
-  line-height: 1.75;
+.letter{
+  margin-top:20px;
+  font-size:20px;
+  line-height:1.75;
 }
 
 /* ===== IMAGE ===== */
-.photo {
-  width: 260px;
-  height: 260px;
-  border-radius: 22px;
-  object-fit: cover;
-  box-shadow: 0 0 35px rgba(255,255,255,0.9);
-  margin-bottom: 20px;
-  border: 3px solid rgba(255,255,255,0.4);
+.photo{
+  width:260px;height:260px;
+  border-radius:22px;
+  object-fit:cover;
+  margin-bottom:18px;
+  border:3px solid rgba(255,255,255,.45);
+  box-shadow:0 0 40px rgba(255,255,255,.9);
+  animation:photoGlow 3.5s ease-in-out infinite;
+}
+@keyframes photoGlow{
+  0%,100%{box-shadow:0 0 30px rgba(255,255,255,.75)}
+  50%{box-shadow:0 0 55px rgba(255,255,255,1)}
 }
 
 /* ===== FLOATING HEARTS ===== */
-.heart {
-  position: fixed;
-  bottom: -20px;
-  font-size: 20px;
-  animation: floatUp 6s linear infinite;
-  opacity: 0.7;
+.heart{
+  position:fixed;bottom:-20px;
+  font-size:18px;opacity:.75;
+  animation:floatUp 7s linear infinite;
+}
+@keyframes floatUp{
+  from{transform:translateY(0)}
+  to{transform:translateY(-120vh)}
 }
 
-@keyframes floatUp {
-  from { transform: translateY(0); }
-  to { transform: translateY(-120vh); }
+/* ===== SPARKLES ===== */
+.sparkle{
+  position:fixed;
+  width:6px;height:6px;
+  background:white;
+  border-radius:50%;
+  opacity:.6;
+  animation:spark 2s linear infinite;
+}
+@keyframes spark{
+  0%{transform:scale(0);opacity:0}
+  50%{transform:scale(1);opacity:.8}
+  100%{transform:scale(0);opacity:0}
 }
 </style>
 </head>
@@ -124,8 +131,8 @@ button:active {
 <!-- SECTION 1 -->
 <div class="section fade">
   <div class="frame">
-    <h1>Hey Jyoshna 💖</h1>
-    <h2 style="margin-top:14px;">Something gentle, just for you ✨</h2>
+    <h1 id="t1" class="cursor"></h1>
+    <h2 style="margin-top:14px" id="t2"></h2>
     <button onclick="showSection('sec2')">Tap to Begin 💌</button>
   </div>
 </div>
@@ -133,10 +140,8 @@ button:active {
 <!-- SECTION 2 -->
 <div id="sec2" class="section hide">
   <div class="frame slide">
-    <h1>This isn’t ordinary 🌙</h1>
-    <p style="margin-top:15px; font-size:20px;">
-      It’s made slowly, carefully… with meaning.
-    </p>
+    <h1 id="t3" class="cursor"></h1>
+    <p style="margin-top:15px;font-size:20px" id="t4"></p>
     <button onclick="playSong(); showSection('sec3')">Tap Again 🎵</button>
   </div>
 </div>
@@ -145,21 +150,7 @@ button:active {
 <div id="sec3" class="section hide">
   <div class="frame slide">
     <h1>A Letter for You 💕</h1>
-    <div class="letter">
-      Jyoshna,<br><br>
-
-      Some people don’t need to try to be special —  
-      their presence already feels different.<br><br>
-
-      You feel like that quiet moment that stays,  
-      long after everything else fades away.<br><br>
-
-      This isn’t about perfection.  
-      It’s about sincerity.  
-      And this… is sincere.<br><br>
-
-      Happy Valentine’s Day 💫
-    </div>
+    <div class="letter" id="letter"></div>
     <button onclick="showSection('sec4')">Continue 💖</button>
   </div>
 </div>
@@ -168,8 +159,8 @@ button:active {
 <div id="sec4" class="section hide">
   <div class="frame slide">
     <img src="jyoshna.jpg" class="photo">
-    <h2>She’s more than beautiful 🌸</h2>
-    <h3>She’s a feeling.</h3>
+    <h2 class="fade">She’s more than beautiful 🌸</h2>
+    <h3 class="fade">She’s a feeling.</h3>
     <button onclick="showSection('sec5')">One Last Thing 😌</button>
   </div>
 </div>
@@ -177,40 +168,89 @@ button:active {
 <!-- SECTION 5 -->
 <div id="sec5" class="section hide">
   <div class="frame fade">
-    <h1>🎵 I Wanna Be Yours 🎵</h1>
-    <p style="font-size:22px; margin-top:20px;">
-      In patience.<br>
-      In care.<br>
-      In silence.<br><br>
+    <h1 class="fade">🎵 I Wanna Be Yours 🎵</h1>
+    <p class="fade" style="font-size:22px;margin-top:20px">
+      In patience.<br>In care.<br>In silence.<br><br>
       Happy Valentine’s Day, Jyoshna ❤️
     </p>
   </div>
 </div>
 
-<!-- AUDIO -->
 <audio id="song" src="song.mp3"></audio>
 
 <script>
-function showSection(id) {
-  const el = document.getElementById(id);
-  el.style.display = "flex";
-  el.scrollIntoView({ behavior: "smooth" });
+/* ===== SHOW ===== */
+function showSection(id){
+  const el=document.getElementById(id);
+  el.style.display="flex";
+  el.scrollIntoView({behavior:"smooth"});
 }
 
-function playSong() {
-  document.getElementById("song").play();
+/* ===== MUSIC FADE-IN ===== */
+function playSong(){
+  const a=document.getElementById("song");
+  a.volume=0; a.play();
+  let v=0; const fade=setInterval(()=>{
+    v+=0.02; a.volume=Math.min(v,.9);
+    if(v>=.9) clearInterval(fade);
+  },120);
 }
 
-/* Floating hearts */
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤️";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = Math.random() * 18 + 14 + "px";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000);
-}, 500);
+/* ===== TYPING EFFECT ===== */
+function typeText(el,text,speed=45){
+  let i=0; el.textContent="";
+  const t=setInterval(()=>{
+    el.textContent+=text[i++];
+    if(i>=text.length) clearInterval(t);
+  },speed);
+}
+
+/* INIT TYPING */
+typeText(document.getElementById("t1"),"Hey Jyoshna 💖");
+setTimeout(()=>typeText(document.getElementById("t2"),"Something gentle, just for you ✨",30),800);
+
+setTimeout(()=>{
+  typeText(document.getElementById("t3"),"This isn’t ordinary 🌙");
+  setTimeout(()=>typeText(document.getElementById("t4"),"It’s made slowly, carefully… with meaning.",28),700);
+},1800);
+
+const letterText=`Jyoshna,
+
+Some people don’t try to be special —
+their presence already feels different.
+
+You feel like that quiet moment that stays,
+long after everything else fades away.
+
+This isn’t about perfection.
+It’s about sincerity.
+And this… is sincere.
+
+Happy Valentine’s Day 💫`;
+
+setTimeout(()=>{
+  typeText(document.getElementById("letter"),letterText,28);
+},2600);
+
+/* ===== HEARTS ===== */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart"; h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(Math.random()*18+14)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),7000);
+},600);
+
+/* ===== SPARKLES ===== */
+setInterval(()=>{
+  const s=document.createElement("div");
+  s.className="sparkle";
+  s.style.left=Math.random()*100+"vw";
+  s.style.top=Math.random()*100+"vh";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),2000);
+},300);
 </script>
 
 </body>
