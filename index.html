@@ -106,3 +106,173 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Jyoshna ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(180deg, #ff9a9e, #fad0c4);
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Common */
+.section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+button {
+  padding: 14px 28px;
+  font-size: 18px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  background: white;
+  color: #ff4d6d;
+  font-weight: bold;
+  box-shadow: 0 0 20px rgba(255,255,255,0.6);
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.08);
+}
+
+/* Glow text */
+.glow {
+  text-shadow: 0 0 15px rgba(255,255,255,0.9);
+}
+
+/* Letter */
+.letter {
+  max-width: 700px;
+  background: rgba(255,255,255,0.15);
+  padding: 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  font-size: 20px;
+  line-height: 1.7;
+}
+
+/* Image */
+.photo {
+  width: 260px;
+  height: 260px;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 0 30px rgba(255,255,255,0.8);
+  margin-bottom: 20px;
+}
+
+/* Hearts animation */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  color: rgba(255,255,255,0.6);
+  font-size: 20px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  0% {transform: translateY(0); opacity: 1;}
+  100% {transform: translateY(-110vh); opacity: 0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SECTION 1 -->
+<div class="section">
+  <h1 class="glow">Hey Jyoshna 💖</h1>
+  <h2>You have something waiting for you… ✨</h2>
+  <button onclick="reveal('sec2')">Tap to Begin 💌</button>
+</div>
+
+<!-- SECTION 2 -->
+<div id="sec2" class="section hidden">
+  <h1 class="glow">This is not just a website…</h1>
+  <h2>It’s a feeling 🌙</h2>
+  <button onclick="playSong(); reveal('sec3')">Tap Again 🎵</button>
+</div>
+
+<!-- SECTION 3 -->
+<div id="sec3" class="section hidden">
+  <h1 class="glow">A Letter for You 💖</h1>
+  <div class="letter">
+    Jyoshna,<br><br>
+
+    Some people feel like poetry — calm, deep, and unforgettable.  
+    The kind of presence that stays, even in silence.  
+    You are that feeling.<br><br>
+
+    Every little detail about you feels special in ways I can’t explain,  
+    but I hope you feel how genuine this is.  
+    This isn’t about impressing — it’s about meaning.<br><br>
+
+    You matter. More than words.  
+    More than moments.<br><br>
+
+    Happy Valentine’s Day 💫
+  </div>
+  <button onclick="reveal('sec4')">Continue 💕</button>
+</div>
+
+<!-- SECTION 4 -->
+<div id="sec4" class="section hidden">
+  <img src="jyoshna.jpg" class="photo" alt="Jyoshna">
+  <h2 class="glow">She isn’t just beautiful…</h2>
+  <h3>She’s rare 🌸</h3>
+  <button onclick="reveal('sec5')">One More Surprise 😌</button>
+</div>
+
+<!-- SECTION 5 -->
+<div id="sec5" class="section hidden">
+  <h1 class="glow">🎵 I Wanna Be Yours 🎵</h1>
+  <p style="font-size:22px; max-width:600px;">
+    Not just in words…<br>
+    In patience, care, silence, and loyalty 💖<br><br>
+    This song is how it feels.
+  </p>
+  <h2>Happy Valentine’s Day, Jyoshna ❤️</h2>
+</div>
+
+<!-- AUDIO -->
+<audio id="song" src="song.mp3"></audio>
+
+<script>
+function reveal(id) {
+  document.getElementById(id).classList.remove('hidden');
+  document.getElementById(id).scrollIntoView({behavior: 'smooth'});
+}
+
+function playSong() {
+  document.getElementById("song").play();
+}
+
+/* Floating hearts */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random()
