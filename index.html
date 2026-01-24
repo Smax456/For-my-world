@@ -7,34 +7,38 @@
 
 <style>
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(180deg, #ff9a9e, #fad0c4);
   color: white;
   overflow-x: hidden;
 }
 
-/* Common */
+/* Sections */
 .section {
   min-height: 100vh;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 40px 20px;
   text-align: center;
 }
 
-.hidden {
+/* Hidden sections (mobile safe) */
+.hide {
   display: none;
 }
 
+/* Buttons */
 button {
-  padding: 14px 28px;
+  margin-top: 30px;
+  padding: 14px 30px;
   font-size: 18px;
   border-radius: 30px;
   border: none;
@@ -43,27 +47,41 @@ button {
   color: #ff4d6d;
   font-weight: bold;
   box-shadow: 0 0 20px rgba(255,255,255,0.6);
-  transition: 0.3s;
+  transition: transform 0.3s;
 }
 
-button:hover {
-  transform: scale(1.08);
+button:active {
+  transform: scale(0.95);
 }
 
-/* Glow text */
-.glow {
-  text-shadow: 0 0 15px rgba(255,255,255,0.9);
+/* Animations */
+.fade {
+  animation: fadeIn 1.2s ease forwards;
 }
 
-/* Letter */
+.slide {
+  animation: slideUp 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Letter box */
 .letter {
   max-width: 700px;
   background: rgba(255,255,255,0.15);
-  padding: 30px;
+  padding: 25px;
   border-radius: 20px;
-  backdrop-filter: blur(6px);
-  font-size: 20px;
   line-height: 1.7;
+  font-size: 20px;
+  backdrop-filter: blur(6px);
 }
 
 /* Image */
@@ -76,18 +94,18 @@ button:hover {
   margin-bottom: 20px;
 }
 
-/* Hearts animation */
+/* Floating hearts */
 .heart {
   position: fixed;
   bottom: -20px;
-  color: rgba(255,255,255,0.6);
   font-size: 20px;
-  animation: float 6s linear infinite;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.7;
 }
 
-@keyframes float {
-  0% {transform: translateY(0); opacity: 1;}
-  100% {transform: translateY(-110vh); opacity: 0;}
+@keyframes floatUp {
+  from { transform: translateY(0); }
+  to { transform: translateY(-120vh); }
 }
 </style>
 </head>
@@ -95,76 +113,86 @@ button:hover {
 <body>
 
 <!-- SECTION 1 -->
-<div class="section">
-  <h1 class="glow">Hey Jyoshna 💖</h1>
-  <h2>You have something waiting for you… ✨</h2>
-  <button onclick="reveal('sec2')">Tap to Begin 💌</button>
+<div class="section fade">
+  <h1>Hey Jyoshna 💖</h1>
+  <h2 style="margin-top:15px;">This is for you… ✨</h2>
+  <button onclick="showSection('sec2')">Tap to Begin 💌</button>
 </div>
 
 <!-- SECTION 2 -->
-<div id="sec2" class="section hidden">
-  <h1 class="glow">This is not just a website…</h1>
-  <h2>It’s a feeling 🌙</h2>
-  <button onclick="playSong(); reveal('sec3')">Tap Again 🎵</button>
+<div id="sec2" class="section hide">
+  <h1 class="slide">Not everyone gets something like this 🌙</h1>
+  <p style="margin-top:15px; font-size:20px;">Because this comes from meaning.</p>
+  <button onclick="playSong(); showSection('sec3')">Tap Again 🎵</button>
 </div>
 
 <!-- SECTION 3 -->
-<div id="sec3" class="section hidden">
-  <h1 class="glow">A Letter for You 💖</h1>
-  <div class="letter">
+<div id="sec3" class="section hide">
+  <h1 class="slide">A Letter for You 💕</h1>
+  <div class="letter slide">
     Jyoshna,<br><br>
 
-    Some people feel like poetry — calm, deep, and unforgettable.  
-    The kind of presence that stays, even in silence.  
-    You are that feeling.<br><br>
+    Some people feel calm without trying.  
+    Some smiles feel like home.  
+    Some names feel softer than others.<br><br>
 
-    Every little detail about you feels special in ways I can’t explain,  
-    but I hope you feel how genuine this is.  
-    This isn’t about impressing — it’s about meaning.<br><br>
+    You are one of those rare feelings.  
+    This is not about impressing you —  
+    it’s about expressing something real.<br><br>
 
-    You matter. More than words.  
-    More than moments.<br><br>
+    No matter where life goes,  
+    I hope you always remember  
+    that you mattered… beautifully.<br><br>
 
     Happy Valentine’s Day 💫
   </div>
-  <button onclick="reveal('sec4')">Continue 💕</button>
+  <button onclick="showSection('sec4')">Next 💖</button>
 </div>
 
 <!-- SECTION 4 -->
-<div id="sec4" class="section hidden">
-  <img src="jyoshna.jpg" class="photo" alt="Jyoshna">
-  <h2 class="glow">She isn’t just beautiful…</h2>
-  <h3>She’s rare 🌸</h3>
-  <button onclick="reveal('sec5')">One More Surprise 😌</button>
+<div id="sec4" class="section hide">
+  <img src="jyoshna.jpg" class="photo slide">
+  <h2 class="slide">She’s not just pretty 🌸</h2>
+  <h3 class="slide">She’s unforgettable.</h3>
+  <button onclick="showSection('sec5')">Final Surprise 😌</button>
 </div>
 
 <!-- SECTION 5 -->
-<div id="sec5" class="section hidden">
-  <h1 class="glow">🎵 I Wanna Be Yours 🎵</h1>
-  <p style="font-size:22px; max-width:600px;">
-    Not just in words…<br>
-    In patience, care, silence, and loyalty 💖<br><br>
-    This song is how it feels.
+<div id="sec5" class="section hide">
+  <h1 class="fade">🎵 I Wanna Be Yours 🎵</h1>
+  <p class="fade" style="font-size:22px; max-width:600px; margin-top:20px;">
+    In patience.<br>
+    In care.<br>
+    In silence.<br><br>
+    Happy Valentine’s Day, Jyoshna ❤️
   </p>
-  <h2>Happy Valentine’s Day, Jyoshna ❤️</h2>
 </div>
 
 <!-- AUDIO -->
 <audio id="song" src="song.mp3"></audio>
 
 <script>
-function reveal(id) {
-  document.getElementById(id).classList.remove('hidden');
-  document.getElementById(id).scrollIntoView({behavior: 'smooth'});
+function showSection(id) {
+  const el = document.getElementById(id);
+  el.style.display = "flex";
+  el.scrollIntoView({ behavior: "smooth" });
 }
 
 function playSong() {
   document.getElementById("song").play();
 }
 
-/* Floating hearts */
+/* Hearts */
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.innerHTML = "❤️";
-  heart.style.left = Math.random()
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 18 + 14 + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 500);
+</script>
+
+</body>
+    </html>
