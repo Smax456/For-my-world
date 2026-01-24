@@ -19,26 +19,38 @@ body {
   overflow-x: hidden;
 }
 
-/* Sections */
+/* ===== SECTIONS ===== */
 .section {
   min-height: 100vh;
-  padding: 40px 20px;
+  padding: 30px 16px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
-/* Hidden sections (mobile safe) */
 .hide {
   display: none;
 }
 
-/* Buttons */
+/* ===== FRAME / CARD ===== */
+.frame {
+  max-width: 850px;
+  width: 100%;
+  padding: 35px 25px;
+  text-align: center;
+  border-radius: 26px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 0 40px rgba(255,255,255,0.25),
+    inset 0 0 25px rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.25);
+}
+
+/* ===== BUTTONS ===== */
 button {
   margin-top: 30px;
-  padding: 14px 30px;
+  padding: 14px 32px;
   font-size: 18px;
   border-radius: 30px;
   border: none;
@@ -47,20 +59,20 @@ button {
   color: #ff4d6d;
   font-weight: bold;
   box-shadow: 0 0 20px rgba(255,255,255,0.6);
-  transition: transform 0.3s;
+  transition: transform 0.25s ease;
 }
 
 button:active {
   transform: scale(0.95);
 }
 
-/* Animations */
+/* ===== ANIMATIONS ===== */
 .fade {
-  animation: fadeIn 1.2s ease forwards;
+  animation: fadeIn 1.3s ease forwards;
 }
 
 .slide {
-  animation: slideUp 1.2s ease forwards;
+  animation: slideUp 1.3s ease forwards;
 }
 
 @keyframes fadeIn {
@@ -69,32 +81,29 @@ button:active {
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(35px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Letter box */
+/* ===== LETTER ===== */
 .letter {
-  max-width: 700px;
-  background: rgba(255,255,255,0.15);
-  padding: 25px;
-  border-radius: 20px;
-  line-height: 1.7;
+  margin-top: 20px;
   font-size: 20px;
-  backdrop-filter: blur(6px);
+  line-height: 1.75;
 }
 
-/* Image */
+/* ===== IMAGE ===== */
 .photo {
   width: 260px;
   height: 260px;
-  border-radius: 20px;
+  border-radius: 22px;
   object-fit: cover;
-  box-shadow: 0 0 30px rgba(255,255,255,0.8);
+  box-shadow: 0 0 35px rgba(255,255,255,0.9);
   margin-bottom: 20px;
+  border: 3px solid rgba(255,255,255,0.4);
 }
 
-/* Floating hearts */
+/* ===== FLOATING HEARTS ===== */
 .heart {
   position: fixed;
   bottom: -20px;
@@ -114,58 +123,68 @@ button:active {
 
 <!-- SECTION 1 -->
 <div class="section fade">
-  <h1>Hey Jyoshna 💖</h1>
-  <h2 style="margin-top:15px;">This is for you… ✨</h2>
-  <button onclick="showSection('sec2')">Tap to Begin 💌</button>
+  <div class="frame">
+    <h1>Hey Jyoshna 💖</h1>
+    <h2 style="margin-top:14px;">Something gentle, just for you ✨</h2>
+    <button onclick="showSection('sec2')">Tap to Begin 💌</button>
+  </div>
 </div>
 
 <!-- SECTION 2 -->
 <div id="sec2" class="section hide">
-  <h1 class="slide">Not everyone gets something like this 🌙</h1>
-  <p style="margin-top:15px; font-size:20px;">Because this comes from meaning.</p>
-  <button onclick="playSong(); showSection('sec3')">Tap Again 🎵</button>
+  <div class="frame slide">
+    <h1>This isn’t ordinary 🌙</h1>
+    <p style="margin-top:15px; font-size:20px;">
+      It’s made slowly, carefully… with meaning.
+    </p>
+    <button onclick="playSong(); showSection('sec3')">Tap Again 🎵</button>
+  </div>
 </div>
 
 <!-- SECTION 3 -->
 <div id="sec3" class="section hide">
-  <h1 class="slide">A Letter for You 💕</h1>
-  <div class="letter slide">
-    Jyoshna,<br><br>
+  <div class="frame slide">
+    <h1>A Letter for You 💕</h1>
+    <div class="letter">
+      Jyoshna,<br><br>
 
-    Some people feel calm without trying.  
-    Some smiles feel like home.  
-    Some names feel softer than others.<br><br>
+      Some people don’t need to try to be special —  
+      their presence already feels different.<br><br>
 
-    You are one of those rare feelings.  
-    This is not about impressing you —  
-    it’s about expressing something real.<br><br>
+      You feel like that quiet moment that stays,  
+      long after everything else fades away.<br><br>
 
-    No matter where life goes,  
-    I hope you always remember  
-    that you mattered… beautifully.<br><br>
+      This isn’t about perfection.  
+      It’s about sincerity.  
+      And this… is sincere.<br><br>
 
-    Happy Valentine’s Day 💫
+      Happy Valentine’s Day 💫
+    </div>
+    <button onclick="showSection('sec4')">Continue 💖</button>
   </div>
-  <button onclick="showSection('sec4')">Next 💖</button>
 </div>
 
 <!-- SECTION 4 -->
 <div id="sec4" class="section hide">
-  <img src="jyoshna.jpg" class="photo slide">
-  <h2 class="slide">She’s not just pretty 🌸</h2>
-  <h3 class="slide">She’s unforgettable.</h3>
-  <button onclick="showSection('sec5')">Final Surprise 😌</button>
+  <div class="frame slide">
+    <img src="jyoshna.jpg" class="photo">
+    <h2>She’s more than beautiful 🌸</h2>
+    <h3>She’s a feeling.</h3>
+    <button onclick="showSection('sec5')">One Last Thing 😌</button>
+  </div>
 </div>
 
 <!-- SECTION 5 -->
 <div id="sec5" class="section hide">
-  <h1 class="fade">🎵 I Wanna Be Yours 🎵</h1>
-  <p class="fade" style="font-size:22px; max-width:600px; margin-top:20px;">
-    In patience.<br>
-    In care.<br>
-    In silence.<br><br>
-    Happy Valentine’s Day, Jyoshna ❤️
-  </p>
+  <div class="frame fade">
+    <h1>🎵 I Wanna Be Yours 🎵</h1>
+    <p style="font-size:22px; margin-top:20px;">
+      In patience.<br>
+      In care.<br>
+      In silence.<br><br>
+      Happy Valentine’s Day, Jyoshna ❤️
+    </p>
+  </div>
 </div>
 
 <!-- AUDIO -->
@@ -182,7 +201,7 @@ function playSong() {
   document.getElementById("song").play();
 }
 
-/* Hearts */
+/* Floating hearts */
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -195,4 +214,4 @@ setInterval(() => {
 </script>
 
 </body>
-    </html>
+</html>
