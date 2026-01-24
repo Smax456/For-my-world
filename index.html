@@ -1,32 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>For You Jyoshna❤️</title>
-  <style>
-    body {
-      background: linear-gradient(#ff9a9e, #fad0c4);
-      font-family: Arial;
-      text-align: center;
-      color: #fff;
-      padding: 40px;
-    }
-    h1 { font-size: 40px; }
-    p { font-size: 20px; }
-    .heart { font-size: 50px; animation: pulse 1s infinite; }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.3); }
-      100% { transform: scale(1); }
-    }
-  </style>
+<meta charset="UTF-8">
+<title>For you Jyoshna ❤️</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+
+  .name {
+    font-size: 50px;
+    font-weight: bold;
+    text-shadow:
+      0 0 10px #fff,
+      0 0 25px #ff4d6d,
+      0 0 45px #ff4d6d;
+    margin-bottom: 25px;
+  }
+
+  .reveal-box {
+    margin-top: 20px;
+    padding: 15px 25px;
+    border: 2px dashed rgba(255,255,255,0.6);
+    border-radius: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .reveal-box:hover {
+    background: rgba(255,255,255,0.15);
+  }
+
+  .hidden-message {
+    display: none;
+    margin-top: 15px;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  #countdown {
+    margin-top: 30px;
+    font-size: 22px;
+  }
+</style>
 </head>
+
 <body>
 
-  <h1>Happy Valentine’s Day ❤️</h1>
-  <p>This page is made only for you.</p>
-  <p>You are special for me my madam jii💫</p>
-  <div class="heart">💖</div>
-  <p>— From someone who cares</p>
+<h1>Happy Valentine’s Day ❤️</h1>
+
+<div class="name">My World</div>
+
+<div class="reveal-box" onclick="revealMessage()">
+  👆 Tap to reveal
+</div>
+
+<div class="hidden-message" id="message">
+  This page may be simple,<br>
+  but it carries something real.<br>
+  You matter to me, love you so much🌸
+</div>
+
+<div id="countdown"></div>
+
+<script>
+  function revealMessage() {
+    document.getElementById("message").style.display = "block";
+  }
+
+  // Countdown
+  const targetDate = new Date("February 14, 2026 00:00:00").getTime();
+  setInterval(() => {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    if (diff > 0) {
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff / (1000*60*60)) % 24);
+      const m = Math.floor((diff / (1000*60)) % 60);
+
+      document.getElementById("countdown").innerHTML =
+        `⏳ Valentine’s Day in ${d}d ${h}h ${m}m`;
+    } else {
+      document.getElementById("countdown").innerHTML =
+        "❤️ Happy Valentine’s Day ❤️";
+    }
+  }, 1000);
+</script>
 
 </body>
 </html>
