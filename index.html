@@ -59,11 +59,19 @@ button:active{transform:scale(.96)}
 .heart{
   font-size:90px;
   animation:pulse 1.2s infinite;
+  cursor:pointer;
 }
 @keyframes pulse{
   0%,100%{transform:scale(1)}
   50%{transform:scale(1.15)}
 }
+.heart-move{
+  animation:moveUp 1s forwards;
+}
+@keyframes moveUp{
+  to{transform:translateY(-200px);opacity:0}
+}
+.counter{margin-top:10px;font-size:18px}
 
 /* IMAGE */
 .photo{
@@ -75,6 +83,21 @@ button:active{transform:scale(.96)}
   border:3px solid rgba(255,255,255,.45);
   box-shadow:0 0 45px rgba(255,255,255,.9);
 }
+
+/* LOVE LETTER TYPING */
+.type-text{
+  font-size:20px;
+  line-height:1.7;
+  margin-top:16px;
+  white-space:pre-line;
+  border-right:2px solid white;
+  width:0;
+  overflow:hidden;
+  animation:typing 4.5s steps(40,end) forwards,
+            blink .8s infinite;
+}
+@keyframes typing{to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
 
 /* SLIDESHOW */
 .slide{display:none}
@@ -94,18 +117,33 @@ button:active{transform:scale(.96)}
   padding:10px;
   border-radius:14px;
 }
+.slide-controls{margin-top:15px}
+.slide-controls button{
+  padding:10px 20px;
+  font-size:16px;
+}
 
 /* ROSE */
 .rose{
   font-size:90px;
-  animation:glow 2.5s infinite;
+  animation:roseGlow 2.5s infinite;
 }
-@keyframes glow{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.15)}
+@keyframes roseGlow{
+  0%,100%{transform:scale(1);text-shadow:0 0 15px #fff}
+  50%{transform:scale(1.2);text-shadow:0 0 35px #fff}
 }
 
-/* FLOATING HEARTS */
+/* ROSE PETALS */
+.petal{
+  position:fixed;
+  top:-20px;
+  animation:petalFall 7s linear infinite;
+}
+@keyframes petalFall{
+  to{transform:translateY(120vh) rotate(360deg);opacity:0}
+}
+
+/* FLOAT HEARTS */
 .floating{
   position:fixed;
   bottom:-20px;
@@ -120,11 +158,11 @@ button:active{transform:scale(.96)}
 <body>
 
 <!-- HEART LOCK -->
-<div class="section">
+<div class="section" id="lock">
   <div class="frame">
-    <div class="heart">❤️</div>
-    <h2>Tap the heart 4 times</h2>
-    <p>Jyoshna… this is only for you</p>
+    <div class="heart" id="heart">❤️</div>
+    <div class="counter" id="count">0 / 4 taps</div>
+    <p>Tap the heart to unlock</p>
   </div>
 </div>
 
@@ -150,12 +188,16 @@ button:active{transform:scale(.96)}
 <div id="letter" class="section hide">
   <div class="frame">
     <h2>My Love Letter 💌</h2>
-    <p style="font-size:20px;line-height:1.7;margin-top:16px">
-      I don’t promise perfection,<br>
-      but I promise honesty,<br>
-      respect, and genuine care.<br><br>
-      This is written with sincerity.
-    </p>
+    <div class="type-text">
+I don’t promise perfection,
+but I promise honesty,
+respect, and genuine care.
+
+This is written
+slowly,
+intentionally,
+from my heart.
+    </div>
     <button onclick="next('photo')">Next 🤍</button>
   </div>
 </div>
@@ -177,8 +219,7 @@ button:active{transform:scale(.96)}
     <h2>Last Words 💫</h2>
     <p style="font-size:20px;line-height:1.7">
       Whatever happens,<br>
-      I’ll always respect your feelings<br>
-      and your choices.
+      I’ll always respect your feelings.
     </p>
     <button onclick="next('memory')">Our Memories 📸</button>
   </div>
@@ -189,36 +230,26 @@ button:active{transform:scale(.96)}
   <div class="frame">
     <h2>Our Memory Lane 📸</h2>
 
-    <div class="slide">
-      <img src="mem1.jpg">
-      <div class="caption">🌱 When we met</div>
-    </div>
-    <div class="slide">
-      <img src="mem2.jpg">
-      <div class="caption">💞 When we fell in love</div>
-    </div>
-    <div class="slide">
-      <img src="mem3.jpg">
-      <div class="caption">📸 Our pic together</div>
-    </div>
-    <div class="slide">
-      <img src="mem4.jpg">
-      <div class="caption">💖 My favorite pic of you</div>
-    </div>
-    <div class="slide">
-      <img src="mem5.jpg">
-      <div class="caption">🫶 Our first matching PFP</div>
+    <div class="slide"><img src="mem1.jpg"><div class="caption">🌱 When we met</div></div>
+    <div class="slide"><img src="mem2.jpg"><div class="caption">💞 When we fell in love</div></div>
+    <div class="slide"><img src="mem3.jpg"><div class="caption">📸 Our pic together</div></div>
+    <div class="slide"><img src="mem4.jpg"><div class="caption">💖 My favorite pic of you</div></div>
+    <div class="slide"><img src="mem5.jpg"><div class="caption">🫶 Our first matching PFP</div></div>
+
+    <div class="slide-controls">
+      <button onclick="manualSlide(-1)">⬅️ Prev</button>
+      <button onclick="manualSlide(1)">Next ➡️</button>
     </div>
 
     <button onclick="next('rose')">Continue 🌹</button>
   </div>
 </div>
 
-<!-- ROSE GIFT -->
+<!-- ROSE -->
 <div id="rose" class="section hide">
   <div class="frame">
     <div class="rose">🌹</div>
-    <p>This rose carries warmth and respect</p>
+    <p>This rose is my gift to you</p>
     <button onclick="next('comfort')">Next 🤍</button>
   </div>
 </div>
@@ -229,14 +260,13 @@ button:active{transform:scale(.96)}
     <h2>Comfort Corner 🤍</h2>
     <p style="font-size:20px;line-height:1.7">
       You don’t have to be strong always.<br>
-      It’s okay to pause.<br>
       It’s okay to rest.
     </p>
     <button onclick="next('voice')">Final 💗</button>
   </div>
 </div>
 
-<!-- VOICE NOTE -->
+<!-- VOICE -->
 <div id="voice" class="section hide">
   <div class="frame">
     <h2>Just listen 🎧</h2>
@@ -249,41 +279,49 @@ button:active{transform:scale(.96)}
 <audio id="voiceAudio" src="voice.mp3"></audio>
 
 <script>
+/* HEART LOCK */
 let taps=0;
-document.querySelector('.heart').onclick=()=>{
+const heart=document.getElementById("heart");
+const counter=document.getElementById("count");
+heart.onclick=()=>{
   taps++;
+  counter.innerText=`${taps} / 4 taps`;
   if(taps===4){
-    document.getElementById('start').style.display='flex';
+    heart.classList.add("heart-move");
+    setTimeout(()=>{
+      document.getElementById("lock").style.display="none";
+      document.getElementById("start").style.display="flex";
+    },900);
   }
 };
 
+/* NAV */
 function next(id){
-  document.getElementById(id).style.display='flex';
-  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  document.getElementById(id).style.display="flex";
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 
-function playSong(){
-  document.getElementById('songAudio').play();
-}
-function playVoice(){
-  document.getElementById('voiceAudio').play();
-}
+/* AUDIO */
+function playSong(){document.getElementById("songAudio").play();}
+function playVoice(){document.getElementById("voiceAudio").play();}
 
-/* Slideshow */
+/* SLIDESHOW */
 let s=0;
-const slides=document.getElementsByClassName('slide');
+const slides=document.getElementsByClassName("slide");
 function showSlides(){
-  for(let i=0;i<slides.length;i++){
-    slides[i].style.display='none';
-  }
-  s++;
-  if(s>slides.length){s=1}
-  slides[s-1].style.display='block';
+  for(let i=0;i<slides.length;i++) slides[i].style.display="none";
+  slides[s].style.display="block";
+}
+function manualSlide(n){
+  s+=n;
+  if(s<0) s=slides.length-1;
+  if(s>=slides.length) s=0;
+  showSlides();
 }
 showSlides();
-setInterval(showSlides,4000);
+setInterval(()=>{s=(s+1)%slides.length;showSlides();},4000);
 
-/* Floating hearts */
+/* FLOATING HEARTS */
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="floating";
@@ -293,6 +331,17 @@ setInterval(()=>{
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),7000);
 },600);
+
+/* ROSE PETALS */
+setInterval(()=>{
+  const p=document.createElement("div");
+  p.className="petal";
+  p.innerHTML="🌸";
+  p.style.left=Math.random()*100+"vw";
+  p.style.fontSize=(Math.random()*14+12)+"px";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),7000);
+},800);
 </script>
 
 </body>
