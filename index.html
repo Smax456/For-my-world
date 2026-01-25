@@ -6,228 +6,329 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ===== BODY & BACKGROUND ===== */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  color: #fff;
-  text-align: center;
-  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffdde1, #ffc3a0);
-  background-size: 400% 400%;
-  animation: bgMove 20s ease infinite;
-  overflow-x: hidden;
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(180deg,#ff9a9e,#fad0c4);
+  color:white;
+  overflow-x:hidden;
 }
 
-@keyframes bgMove {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+/* COMMON */
+.section{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:25px;
+}
+.hide{display:none}
+
+.frame{
+  max-width:900px;
+  width:100%;
+  text-align:center;
+  padding:36px 26px;
+  border-radius:30px;
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(10px);
+  border:2px solid rgba(255,255,255,.3);
+  box-shadow:0 0 60px rgba(255,255,255,.35);
+  animation:breath 4s infinite;
 }
 
-/* ===== COMMON ===== */
-section {
-  margin: 40px auto;
-  padding: 25px;
-  width: 85%;
-  max-width: 420px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.12);
-  border: 2px solid rgba(255,255,255,0.4);
-  box-shadow: 0 0 25px rgba(255,182,193,0.6);
-  animation: glow 3s ease-in-out infinite alternate;
+@keyframes breath{
+  0%,100%{box-shadow:0 0 40px rgba(255,255,255,.3)}
+  50%{box-shadow:0 0 70px rgba(255,255,255,.45)}
 }
 
-@keyframes glow {
-  from { box-shadow: 0 0 15px rgba(255,182,193,0.4); }
-  to   { box-shadow: 0 0 30px rgba(255,105,180,0.9); }
+button{
+  margin-top:24px;
+  padding:14px 36px;
+  border:none;
+  border-radius:30px;
+  font-size:18px;
+  font-weight:bold;
+  background:white;
+  color:#ff4d6d;
+  cursor:pointer;
+}
+button:active{transform:scale(.96)}
+
+/* HEART LOCK */
+.heart{
+  font-size:90px;
+  animation:pulse 1.2s infinite;
+  cursor:pointer;
+}
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+}
+.heart-move{
+  animation:moveUp 1s forwards;
+}
+@keyframes moveUp{
+  to{transform:translateY(-200px);opacity:0}
+}
+.counter{margin-top:10px;font-size:18px}
+
+/* IMAGE */
+.photo{
+  width:260px;
+  height:260px;
+  border-radius:22px;
+  object-fit:cover;
+  margin-top:16px;
+  border:3px solid rgba(255,255,255,.45);
+  box-shadow:0 0 45px rgba(255,255,255,.9);
 }
 
-.hidden { display: none; }
+/* LOVE LETTER TYPING */
+.type-text{
+  font-size:20px;
+  line-height:1.7;
+  margin-top:16px;
+  white-space:pre-line;
+  border-right:2px solid white;
+  width:0;
+  overflow:hidden;
+  animation:typing 4.5s steps(40,end) forwards,
+            blink .8s infinite;
+}
+@keyframes typing{to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
 
-button {
-  padding: 12px 22px;
-  border-radius: 30px;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  background: #ff4d6d;
-  color: white;
-  box-shadow: 0 0 15px rgba(255,77,109,0.8);
+/* SLIDESHOW */
+.slide{display:none}
+.slide img{
+  width:100%;
+  max-width:320px;
+  height:380px;
+  object-fit:cover;
+  border-radius:22px;
+  border:3px solid rgba(255,255,255,.4);
+  box-shadow:0 0 40px rgba(255,255,255,.8);
+}
+.caption{
+  margin-top:10px;
+  font-size:18px;
+  background:rgba(255,255,255,.25);
+  padding:10px;
+  border-radius:14px;
+}
+.slide-controls{margin-top:15px}
+.slide-controls button{
+  padding:10px 20px;
+  font-size:16px;
 }
 
-/* ===== FLOATING HEARTS (ON CLICK ONLY) ===== */
-.heart {
-  position: fixed;
-  bottom: 20px;
-  font-size: 24px;
-  animation: floatUp 2s ease forwards;
-  pointer-events: none;
+/* ROSE */
+.rose{
+  font-size:90px;
+  animation:roseGlow 2.5s infinite;
+}
+@keyframes roseGlow{
+  0%,100%{transform:scale(1);text-shadow:0 0 15px #fff}
+  50%{transform:scale(1.2);text-shadow:0 0 35px #fff}
 }
 
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-150px); opacity: 0; }
+/* ROSE PETALS */
+.petal{
+  position:fixed;
+  top:-20px;
+  animation:petalFall 7s linear infinite;
+}
+@keyframes petalFall{
+  to{transform:translateY(120vh) rotate(360deg);opacity:0}
 }
 
-/* ===== HEART LOCK ===== */
-#lock {
-  font-size: 60px;
-  cursor: pointer;
-  transition: transform 0.4s;
+/* FLOAT HEARTS */
+.floating{
+  position:fixed;
+  bottom:-20px;
+  animation:floatUp 7s linear infinite;
 }
-
-#count {
-  margin-top: 10px;
-  font-size: 18px;
-}
-
-/* ===== TYPING EFFECT ===== */
-.typing {
-  border-right: 2px solid white;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-/* ===== SLIDESHOW ===== */
-.slideshow img {
-  width: 100%;
-  border-radius: 15px;
-}
-
-.slide-buttons {
-  margin-top: 10px;
-}
-
-/* ===== IMAGE ===== */
-.photo {
-  width: 100%;
-  border-radius: 18px;
-}
-
-/* ===== ROSE ===== */
-.rose {
-  font-size: 60px;
-  animation: roseGlow 2s infinite alternate;
-}
-
-@keyframes roseGlow {
-  from { transform: scale(1); }
-  to { transform: scale(1.1); }
+@keyframes floatUp{
+  to{transform:translateY(-120vh)}
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== LOCK ===== -->
-<section id="lockSection">
-  <div id="lock" onclick="tapHeart()">❤️</div>
-  <div id="count">Tap 4 times</div>
-</section>
-
-<!-- ===== BEGIN ===== -->
-<section id="beginSection" class="hidden">
-  <button onclick="begin()">Tap to Begin 💖</button>
-</section>
-
-<!-- ===== SONG ===== -->
-<section id="songSection" class="hidden">
-  <h2>I Wanna Be Yours 🎵</h2>
-  <audio controls src="song.mp3"></audio>
-</section>
-
-<!-- ===== LOVE LETTER ===== -->
-<section id="letterSection" class="hidden">
-  <h2>Dear Jyoshna 💌</h2>
-  <p id="letter" class="typing"></p>
-</section>
-
-<!-- ===== HER PIC ===== -->
-<section id="photoSection" class="hidden">
-  <img src="jyoshna.jpg" class="photo">
-  <p>My favorite smile 🌷</p>
-</section>
-
-<!-- ===== MEMORY LANE ===== -->
-<section id="memorySection" class="hidden">
-  <h2>Memory Lane 📸</h2>
-  <div class="slideshow">
-    <img id="slide" src="mem1.jpg">
+<!-- HEART LOCK -->
+<div class="section" id="lock">
+  <div class="frame">
+    <div class="heart" id="heart">❤️</div>
+    <div class="counter" id="count">0 / 4 taps</div>
+    <p>Tap the heart to unlock</p>
   </div>
-  <div class="slide-buttons">
-    <button onclick="prevSlide()">⬅</button>
-    <button onclick="nextSlide()">➡</button>
+</div>
+
+<!-- TAP TO BEGIN -->
+<div id="start" class="section hide">
+  <div class="frame">
+    <h1>Hey Jyoshna 💖</h1>
+    <p>This little world is made with care</p>
+    <button onclick="next('song')">Tap to Begin 💌</button>
   </div>
-</section>
+</div>
 
-<!-- ===== ROSE ===== -->
-<section id="roseSection" class="hidden">
-  <h2>A Rose For You 🌹</h2>
-  <div class="rose">🌹</div>
-</section>
+<!-- SONG -->
+<div id="song" class="section hide">
+  <div class="frame">
+    <h2>I Wanna Be Yours 🎶</h2>
+    <button onclick="playSong()">Play Song ▶️</button>
+    <button onclick="next('letter')">Continue 💗</button>
+  </div>
+</div>
 
-<!-- ===== COMFORT ===== -->
-<section id="comfortSection" class="hidden">
-  <p>
-    If you ever feel low,<br>
-    remember you’re cherished,<br>
-    valued, and deeply appreciated 🤍
-  </p>
-</section>
+<!-- LOVE LETTER -->
+<div id="letter" class="section hide">
+  <div class="frame">
+    <h2>My Love Letter 💌</h2>
+    <div class="type-text">
+I don’t promise perfection,
+but I promise honesty,
+respect, and genuine care.
 
-<!-- ===== VOICE NOTE ===== -->
-<section id="voiceSection" class="hidden">
-  <h2>Just Listen 🎧</h2>
-  <audio controls src="voice.mp3"></audio>
-</section>
+This is written
+slowly,
+intentionally,
+from my heart.
+    </div>
+    <button onclick="next('photo')">Next 🤍</button>
+  </div>
+</div>
+
+<!-- HER PHOTO -->
+<div id="photo" class="section hide">
+  <div class="frame">
+    <img src="jyoshna.jpg" class="photo">
+    <p style="margin-top:16px;font-size:18px">
+      Your smile feels like peace.
+    </p>
+    <button onclick="next('last')">Next 🌙</button>
+  </div>
+</div>
+
+<!-- LAST WORDS -->
+<div id="last" class="section hide">
+  <div class="frame">
+    <h2>Last Words 💫</h2>
+    <p style="font-size:20px;line-height:1.7">
+      Whatever happens,<br>
+      I’ll always respect your feelings.
+    </p>
+    <button onclick="next('memory')">Our Memories 📸</button>
+  </div>
+</div>
+
+<!-- MEMORY SLIDESHOW -->
+<div id="memory" class="section hide">
+  <div class="frame">
+    <h2>Our Memory Lane 📸</h2>
+
+    <div class="slide"><img src="mem1.jpg"><div class="caption">🌱 When we met</div></div>
+    <div class="slide"><img src="mem2.jpg"><div class="caption">💞 When we fell in love</div></div>
+    <div class="slide"><img src="mem3.jpg"><div class="caption">📸 Our pic together</div></div>
+    <div class="slide"><img src="mem4.jpg"><div class="caption">💖 My favorite pic of you</div></div>
+    <div class="slide"><img src="mem5.jpg"><div class="caption">🫶 Our first matching PFP</div></div>
+
+    <div class="slide-controls">
+      <button onclick="manualSlide(-1)">⬅️ Prev</button>
+      <button onclick="manualSlide(1)">Next ➡️</button>
+    </div>
+
+    <button onclick="next('rose')">Continue 🌹</button>
+  </div>
+</div>
+
+<!-- ROSE -->
+<div id="rose" class="section hide">
+  <div class="frame">
+    <div class="rose">🌹</div>
+    <p>This rose is my gift to you</p>
+    <button onclick="next('comfort')">Next 🤍</button>
+  </div>
+</div>
+
+<!-- COMFORT -->
+<div id="comfort" class="section hide">
+  <div class="frame">
+    <h2>Comfort Corner 🤍</h2>
+    <p style="font-size:20px;line-height:1.7">
+      You don’t have to be strong always.<br>
+      It’s okay to rest.
+    </p>
+    <button onclick="next('voice')">Final 💗</button>
+  </div>
+</div>
+
+<!-- VOICE -->
+<div id="voice" class="section hide">
+  <div class="frame">
+    <h2>Just listen 🎧</h2>
+    <button onclick="playVoice()">Play Voice Note 💗</button>
+    <p>Only for you, Jyoshna</p>
+  </div>
+</div>
+
+<audio id="songAudio" src="song.mp3"></audio>
+<audio id="voiceAudio" src="voice.mp3"></audio>
 
 <script>
-/* HEART TAP */
-let taps = 0;
-function tapHeart() {
+/* HEART LOCK */
+let taps=0;
+const heart=document.getElementById("heart");
+const counter=document.getElementById("count");
+heart.onclick=()=>{
   taps++;
-  document.getElementById("count").innerText = `Tapped ${taps}/4`;
-  createHeart();
-  if (taps === 4) {
-    document.getElementById("lockSection").style.display = "none";
-    document.getElementById("beginSection").classList.remove("hidden");
+  counter.innerText=`${taps} / 4 taps`;
+  if(taps===4){
+    heart.classList.add("heart-move");
+    setTimeout(()=>{
+      document.getElementById("lock").style.display="none";
+      document.getElementById("start").style.display="flex";
+    },900);
   }
+};
+
+/* NAV */
+function next(id){
+  document.getElementById(id).style.display="flex";
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 
-/* FLOATING HEART */
-function createHeart() {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerText = "💗";
-  h.style.left = Math.random()*100 + "vw";
+/* AUDIO */
+function playSong(){document.getElementById("songAudio").play();}
+function playVoice(){document.getElementById("voiceAudio").play();}
+
+/* SLIDESHOW */
+let s=0;
+const slides=document.getElementsByClassName("slide");
+function showSlides(){
+  for(let i=0;i<slides.length;i++) slides[i].style.display="none";
+  slides[s].style.display="block";
+}
+function manualSlide(n){
+  s+=n;
+  if(s<0) s=slides.length-1;
+  if(s>=slides.length) s=0;
+  showSlides();
+}
+showSlides();
+setInterval(()=>{s=(s+1)%slides.length;showSlides();},4000);
+
+/* FLOATING HEARTS */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="floating";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(Math.random()*20+14)+"px";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),2000);
-}
+  setTimeout(()=>h.remove(),7000);
+},600);
 
-/* BEGIN */
-function begin() {
-  ["songSection","letterSection","photoSection","memorySection","roseSection","comfortSection","voiceSection"]
-  .forEach(id => document.getElementById(id).classList.remove("hidden"));
-  typeLetter();
-}
-
-/* TYPING */
-const text = "Meeting you felt special... falling for you felt natural.";
-let i=0;
-function typeLetter(){
-  if(i<text.length){
-    document.getElementById("letter").innerText += text.charAt(i);
-    i++;
-    setTimeout(typeLetter,50);
-  }
-}
-
-/* SLIDES */
-const slides = ["mem1.jpg","mem2.jpg","mem3.jpg","mem4.jpg","mem5.jpg"];
-let s = 0;
-function nextSlide(){ s=(s+1)%slides.length; document.getElementById("slide").src=slides[s]; }
-function prevSlide(){ s=(s-1+slides.length)%slides.length; document.getElementById("slide").src=slides[s]; }
-</script>
-
-</body>
-</html>
