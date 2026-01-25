@@ -15,124 +15,91 @@ body{
   overflow-x:hidden;
 }
 
-/* ===== LOCK SCREEN ===== */
-#lock{
-  position:fixed;
-  inset:0;
-  background:linear-gradient(180deg,#ff8fa3,#ffb3c6);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
-
-.lock-frame{
-  text-align:center;
-  padding:40px 30px;
-  border-radius:30px;
-  background:rgba(255,255,255,.18);
-  backdrop-filter:blur(10px);
-  box-shadow:0 0 45px rgba(255,255,255,.4);
-}
-
-.lock-heart{
-  font-size:90px;
-  cursor:pointer;
-  animation:pulse 1.6s infinite;
-  user-select:none;
-}
-
-@keyframes pulse{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.15)}
-}
-
-.lock-text{
-  margin-top:20px;
-  font-size:22px;
-}
-
-.tap-count{
-  margin-top:10px;
-  opacity:.85;
-}
-
-/* ===== SECTIONS ===== */
 .section{
   min-height:100vh;
-  padding:28px 16px;
+  padding:30px 16px;
   display:flex;
   justify-content:center;
   align-items:center;
 }
 .hide{display:none}
 
-/* ===== FRAME ===== */
 .frame{
-  max-width:860px;
+  max-width:900px;
   width:100%;
   padding:36px 26px;
   text-align:center;
-  border-radius:28px;
-  background:rgba(255,255,255,.14);
+  border-radius:30px;
+  background:rgba(255,255,255,.15);
   backdrop-filter:blur(10px);
-  border:2px solid rgba(255,255,255,.28);
-  box-shadow:
-    0 0 40px rgba(255,255,255,.25),
-    inset 0 0 30px rgba(255,255,255,.18);
-  animation:breath 4s ease-in-out infinite;
+  border:2px solid rgba(255,255,255,.3);
+  box-shadow:0 0 50px rgba(255,255,255,.3);
 }
 
-@keyframes breath{
-  0%,100%{box-shadow:0 0 38px rgba(255,255,255,.22)}
-  50%{box-shadow:0 0 56px rgba(255,255,255,.35)}
-}
-
-/* ===== BUTTON ===== */
 button{
-  margin-top:30px;
-  padding:14px 32px;
+  margin-top:26px;
+  padding:14px 34px;
   font-size:18px;
   border-radius:30px;
   border:none;
-  cursor:pointer;
   background:white;
   color:#ff4d6d;
   font-weight:bold;
-  box-shadow:0 0 20px rgba(255,255,255,.6);
+  cursor:pointer;
 }
-button:active{transform:scale(.95)}
 
-/* ===== ANIMS ===== */
-.fade{animation:fadeIn 1.2s ease forwards}
-.slide{animation:slideUp 1.2s ease forwards}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes slideUp{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:translateY(0)}}
-
-/* ===== TYPING ===== */
-.cursor::after{
-  content:"|";
-  margin-left:4px;
-  animation:blink 1s infinite;
+/* SLIDESHOW */
+.slideshow{
+  position:relative;
+  max-width:320px;
+  margin:25px auto;
 }
-@keyframes blink{0%,50%,100%{opacity:1}25%,75%{opacity:0}}
 
-.letter{margin-top:20px;font-size:20px;line-height:1.75}
+.slide{
+  display:none;
+  animation:fade 1.2s ease;
+}
 
-/* ===== IMAGE ===== */
-.photo{
-  width:260px;height:260px;
-  border-radius:22px;
+.slide img{
+  width:100%;
+  height:360px;
   object-fit:cover;
+  border-radius:22px;
   border:3px solid rgba(255,255,255,.45);
-  box-shadow:0 0 45px rgba(255,255,255,.9);
-  margin-bottom:20px;
+  box-shadow:0 0 45px rgba(255,255,255,.8);
 }
 
-/* ===== HEARTS ===== */
+.caption{
+  margin-top:12px;
+  font-size:18px;
+  background:rgba(255,255,255,.25);
+  padding:10px;
+  border-radius:14px;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:scale(.96)}
+  to{opacity:1;transform:scale(1)}
+}
+
+.controls button{
+  margin:10px;
+}
+
+/* ROSE */
+.rose{
+  font-size:90px;
+  animation:glow 2.5s infinite;
+}
+@keyframes glow{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+}
+
+/* HEARTS */
 .heart{
-  position:fixed;bottom:-20px;
-  font-size:18px;opacity:.75;
+  position:fixed;
+  bottom:-20px;
   animation:floatUp 7s linear infinite;
 }
 @keyframes floatUp{
@@ -144,134 +111,111 @@ button:active{transform:scale(.95)}
 
 <body>
 
-<!-- 🔐 LOCK SCREEN -->
-<div id="lock">
-  <div class="lock-frame">
-    <div class="lock-heart" onclick="tapHeart()">❤️</div>
-    <div class="lock-text">Tap the heart 4 times 💖</div>
-    <div class="tap-count" id="count">0 / 4</div>
-  </div>
-</div>
-
-<!-- SECTION 1 -->
-<div class="section fade">
+<!-- START -->
+<div class="section">
   <div class="frame">
-    <h1 id="t1" class="cursor"></h1>
-    <h2 style="margin-top:14px" id="t2"></h2>
-    <button onclick="showSection('sec2')">Tap to Begin 💌</button>
+    <h1>Hey Jyoshna 💖</h1>
+    <p style="margin-top:10px">This is our little world</p>
+    <button onclick="show('memory')">Tap to Begin 💌</button>
   </div>
 </div>
 
-<!-- SECTION 2 -->
-<div id="sec2" class="section hide">
-  <div class="frame slide">
-    <h1 id="t3" class="cursor"></h1>
-    <p style="margin-top:15px;font-size:20px" id="t4"></p>
-    <button onclick="playSong(); showSection('sec3')">Tap Again 🎵</button>
+<!-- MEMORY LANE -->
+<div id="memory" class="section hide">
+  <div class="frame">
+    <h1>Our Memory Lane 📸</h1>
+
+    <div class="slideshow">
+      <div class="slide">
+        <img src="mem1.jpg">
+        <div class="caption">🌱 When we met</div>
+      </div>
+      <div class="slide">
+        <img src="mem2.jpg">
+        <div class="caption">💞 When we fell in love</div>
+      </div>
+      <div class="slide">
+        <img src="mem3.jpg">
+        <div class="caption">📸 Our pic together</div>
+      </div>
+      <div class="slide">
+        <img src="mem4.jpg">
+        <div class="caption">💖 My favorite pic of you</div>
+      </div>
+      <div class="slide">
+        <img src="mem5.jpg">
+        <div class="caption">🫶 Our first matching PFP</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button onclick="changeSlide(-1)">⬅️</button>
+      <button onclick="changeSlide(1)">➡️</button>
+    </div>
+
+    <button onclick="show('gift')">Continue 🌹</button>
   </div>
 </div>
 
-<!-- SECTION 3 -->
-<div id="sec3" class="section hide">
-  <div class="frame slide">
-    <h1>A Letter for You 💕</h1>
-    <div class="letter" id="letter"></div>
-    <button onclick="showSection('sec4')">Continue 💖</button>
-  </div>
-</div>
-
-<!-- SECTION 4 -->
-<div id="sec4" class="section hide">
-  <div class="frame slide">
-    <img src="jyoshna.jpg" class="photo">
-    <h2>She’s more than beautiful 🌸</h2>
-    <h3>She’s a feeling.</h3>
-    <button onclick="showSection('sec5')">One Last Thing 😌</button>
-  </div>
-</div>
-
-<!-- SECTION 5 -->
-<div id="sec5" class="section hide">
-  <div class="frame fade">
-    <h1>🎵 I Wanna Be Yours 🎵</h1>
-    <p style="font-size:22px;margin-top:20px">
-      In patience.<br>In care.<br>In silence.<br><br>
-      Happy Valentine’s Day, Jyoshna ❤️
+<!-- GIFT -->
+<div id="gift" class="section hide">
+  <div class="frame">
+    <h1>A Rose for You 🌹</h1>
+    <div class="rose">🌹</div>
+    <p style="margin-top:16px;font-size:20px">
+      This rose carries<br>my respect, warmth and care.
     </p>
+    <button onclick="show('voice')">One Last Thing 🤍</button>
   </div>
 </div>
 
-<audio id="song" src="song.mp3"></audio>
+<!-- VOICE -->
+<div id="voice" class="section hide">
+  <div class="frame">
+    <h2>Just listen 🎧</h2>
+    <button onclick="playVoice()">Play Voice Note 💗</button>
+    <p style="margin-top:14px">Only for you, Jyoshna</p>
+  </div>
+</div>
+
+<audio id="voiceNote" src="voice.mp3"></audio>
 
 <script>
-/* ===== LOCK ===== */
-let taps=0;
-function tapHeart(){
-  taps++;
-  document.getElementById("count").textContent = taps+" / 4";
-  if(taps===4){
-    document.getElementById("lock").style.opacity="0";
-    setTimeout(()=>document.getElementById("lock").style.display="none",600);
-    startTyping();
+let index=0;
+const slides=document.getElementsByClassName("slide");
+
+function showSlides(){
+  for(let i=0;i<slides.length;i++){
+    slides[i].style.display="none";
   }
+  index++;
+  if(index>slides.length){index=1}
+  slides[index-1].style.display="block";
+}
+showSlides();
+setInterval(showSlides,4500);
+
+function changeSlide(n){
+  index+=n-1;
+  if(index<0) index=slides.length-1;
+  showSlides();
 }
 
-/* ===== SHOW ===== */
-function showSection(id){
-  const el=document.getElementById(id);
-  el.style.display="flex";
-  el.scrollIntoView({behavior:"smooth"});
+function show(id){
+  document.getElementById(id).style.display="flex";
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 
-/* ===== MUSIC ===== */
-function playSong(){
-  const a=document.getElementById("song");
-  a.volume=0;a.play();
-  let v=0;const f=setInterval(()=>{
-    v+=.02;a.volume=Math.min(v,.9);
-    if(v>=.9)clearInterval(f);
-  },120);
+function playVoice(){
+  document.getElementById("voiceNote").play();
 }
 
-/* ===== TYPING ===== */
-function typeText(el,text,s=45){
-  let i=0;el.textContent="";
-  const t=setInterval(()=>{
-    el.textContent+=text[i++];
-    if(i>=text.length)clearInterval(t);
-  },s);
-}
-
-function startTyping(){
-  typeText(t1,"Hey Jyoshna 💖");
-  setTimeout(()=>typeText(t2,"Something gentle, just for you ✨",30),800);
-  setTimeout(()=>{
-    typeText(t3,"This isn’t ordinary 🌙");
-    setTimeout(()=>typeText(t4,"It’s made slowly, carefully… with meaning.",28),700);
-  },1600);
-  setTimeout(()=>{
-    typeText(letter,`Jyoshna,
-
-Some people don’t try to be special —
-their presence already feels different.
-
-You feel like that quiet moment that stays,
-long after everything else fades away.
-
-This isn’t about perfection.
-It’s about sincerity.
-And this… is sincere.
-
-Happy Valentine’s Day 💫`,28);
-  },2600);
-}
-
-/* ===== HEARTS ===== */
 setInterval(()=>{
   const h=document.createElement("div");
-  h.className="heart";h.innerHTML="❤️";
+  h.className="heart";
+  h.innerHTML="❤️";
   h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(Math.random()*18+14)+"px";
+  h.style.fontSize=(Math.random()*20+14)+"px";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),7000);
 },600);
