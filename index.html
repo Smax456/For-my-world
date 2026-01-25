@@ -7,7 +7,6 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-
 body{
   font-family:'Segoe UI',sans-serif;
   background:linear-gradient(180deg,#ff9a9e,#fad0c4);
@@ -15,75 +14,85 @@ body{
   overflow-x:hidden;
 }
 
+/* COMMON */
 .section{
   min-height:100vh;
-  padding:30px 16px;
   display:flex;
   justify-content:center;
   align-items:center;
+  padding:25px;
 }
 .hide{display:none}
 
 .frame{
   max-width:900px;
   width:100%;
-  padding:36px 26px;
   text-align:center;
+  padding:36px 26px;
   border-radius:30px;
   background:rgba(255,255,255,.15);
   backdrop-filter:blur(10px);
   border:2px solid rgba(255,255,255,.3);
-  box-shadow:0 0 50px rgba(255,255,255,.3);
+  box-shadow:0 0 60px rgba(255,255,255,.35);
+  animation:breath 4s infinite;
+}
+
+@keyframes breath{
+  0%,100%{box-shadow:0 0 40px rgba(255,255,255,.3)}
+  50%{box-shadow:0 0 70px rgba(255,255,255,.45)}
 }
 
 button{
-  margin-top:26px;
-  padding:14px 34px;
-  font-size:18px;
-  border-radius:30px;
+  margin-top:24px;
+  padding:14px 36px;
   border:none;
+  border-radius:30px;
+  font-size:18px;
+  font-weight:bold;
   background:white;
   color:#ff4d6d;
-  font-weight:bold;
   cursor:pointer;
+}
+button:active{transform:scale(.96)}
+
+/* HEART LOCK */
+.heart{
+  font-size:90px;
+  animation:pulse 1.2s infinite;
+}
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+}
+
+/* IMAGE */
+.photo{
+  width:260px;
+  height:260px;
+  border-radius:22px;
+  object-fit:cover;
+  margin-top:16px;
+  border:3px solid rgba(255,255,255,.45);
+  box-shadow:0 0 45px rgba(255,255,255,.9);
 }
 
 /* SLIDESHOW */
-.slideshow{
-  position:relative;
-  max-width:320px;
-  margin:25px auto;
-}
-
-.slide{
-  display:none;
-  animation:fade 1.2s ease;
-}
-
+.slide{display:none}
 .slide img{
   width:100%;
-  height:360px;
+  max-width:320px;
+  height:380px;
   object-fit:cover;
   border-radius:22px;
-  border:3px solid rgba(255,255,255,.45);
-  box-shadow:0 0 45px rgba(255,255,255,.8);
+  border:3px solid rgba(255,255,255,.4);
+  box-shadow:0 0 40px rgba(255,255,255,.8);
 }
-
 .caption{
-  margin-top:12px;
+  margin-top:10px;
   font-size:18px;
   background:rgba(255,255,255,.25);
   padding:10px;
   border-radius:14px;
-}
-
-@keyframes fade{
-  from{opacity:0;transform:scale(.96)}
-  to{opacity:1;transform:scale(1)}
-}
-
-.controls button{
-  margin:10px;
 }
 
 /* ROSE */
@@ -96,14 +105,13 @@ button{
   50%{transform:scale(1.15)}
 }
 
-/* HEARTS */
-.heart{
+/* FLOATING HEARTS */
+.floating{
   position:fixed;
   bottom:-20px;
   animation:floatUp 7s linear infinite;
 }
 @keyframes floatUp{
-  from{transform:translateY(0)}
   to{transform:translateY(-120vh)}
 }
 </style>
@@ -111,108 +119,174 @@ button{
 
 <body>
 
-<!-- START -->
+<!-- HEART LOCK -->
 <div class="section">
   <div class="frame">
-    <h1>Hey Jyoshna 💖</h1>
-    <p style="margin-top:10px">This is our little world</p>
-    <button onclick="show('memory')">Tap to Begin 💌</button>
+    <div class="heart">❤️</div>
+    <h2>Tap the heart 4 times</h2>
+    <p>Jyoshna… this is only for you</p>
   </div>
 </div>
 
-<!-- MEMORY LANE -->
+<!-- TAP TO BEGIN -->
+<div id="start" class="section hide">
+  <div class="frame">
+    <h1>Hey Jyoshna 💖</h1>
+    <p>This little world is made with care</p>
+    <button onclick="next('song')">Tap to Begin 💌</button>
+  </div>
+</div>
+
+<!-- SONG -->
+<div id="song" class="section hide">
+  <div class="frame">
+    <h2>I Wanna Be Yours 🎶</h2>
+    <button onclick="playSong()">Play Song ▶️</button>
+    <button onclick="next('letter')">Continue 💗</button>
+  </div>
+</div>
+
+<!-- LOVE LETTER -->
+<div id="letter" class="section hide">
+  <div class="frame">
+    <h2>My Love Letter 💌</h2>
+    <p style="font-size:20px;line-height:1.7;margin-top:16px">
+      I don’t promise perfection,<br>
+      but I promise honesty,<br>
+      respect, and genuine care.<br><br>
+      This is written with sincerity.
+    </p>
+    <button onclick="next('photo')">Next 🤍</button>
+  </div>
+</div>
+
+<!-- HER PHOTO -->
+<div id="photo" class="section hide">
+  <div class="frame">
+    <img src="jyoshna.jpg" class="photo">
+    <p style="margin-top:16px;font-size:18px">
+      Your smile feels like peace.
+    </p>
+    <button onclick="next('last')">Next 🌙</button>
+  </div>
+</div>
+
+<!-- LAST WORDS -->
+<div id="last" class="section hide">
+  <div class="frame">
+    <h2>Last Words 💫</h2>
+    <p style="font-size:20px;line-height:1.7">
+      Whatever happens,<br>
+      I’ll always respect your feelings<br>
+      and your choices.
+    </p>
+    <button onclick="next('memory')">Our Memories 📸</button>
+  </div>
+</div>
+
+<!-- MEMORY SLIDESHOW -->
 <div id="memory" class="section hide">
   <div class="frame">
-    <h1>Our Memory Lane 📸</h1>
+    <h2>Our Memory Lane 📸</h2>
 
-    <div class="slideshow">
-      <div class="slide">
-        <img src="mem1.jpg">
-        <div class="caption">🌱 When we met</div>
-      </div>
-      <div class="slide">
-        <img src="mem2.jpg">
-        <div class="caption">💞 When we fell in love</div>
-      </div>
-      <div class="slide">
-        <img src="mem3.jpg">
-        <div class="caption">📸 Our pic together</div>
-      </div>
-      <div class="slide">
-        <img src="mem4.jpg">
-        <div class="caption">💖 My favorite pic of you</div>
-      </div>
-      <div class="slide">
-        <img src="mem5.jpg">
-        <div class="caption">🫶 Our first matching PFP</div>
-      </div>
+    <div class="slide">
+      <img src="mem1.jpg">
+      <div class="caption">🌱 When we met</div>
+    </div>
+    <div class="slide">
+      <img src="mem2.jpg">
+      <div class="caption">💞 When we fell in love</div>
+    </div>
+    <div class="slide">
+      <img src="mem3.jpg">
+      <div class="caption">📸 Our pic together</div>
+    </div>
+    <div class="slide">
+      <img src="mem4.jpg">
+      <div class="caption">💖 My favorite pic of you</div>
+    </div>
+    <div class="slide">
+      <img src="mem5.jpg">
+      <div class="caption">🫶 Our first matching PFP</div>
     </div>
 
-    <div class="controls">
-      <button onclick="changeSlide(-1)">⬅️</button>
-      <button onclick="changeSlide(1)">➡️</button>
-    </div>
-
-    <button onclick="show('gift')">Continue 🌹</button>
+    <button onclick="next('rose')">Continue 🌹</button>
   </div>
 </div>
 
-<!-- GIFT -->
-<div id="gift" class="section hide">
+<!-- ROSE GIFT -->
+<div id="rose" class="section hide">
   <div class="frame">
-    <h1>A Rose for You 🌹</h1>
     <div class="rose">🌹</div>
-    <p style="margin-top:16px;font-size:20px">
-      This rose carries<br>my respect, warmth and care.
-    </p>
-    <button onclick="show('voice')">One Last Thing 🤍</button>
+    <p>This rose carries warmth and respect</p>
+    <button onclick="next('comfort')">Next 🤍</button>
   </div>
 </div>
 
-<!-- VOICE -->
+<!-- COMFORT -->
+<div id="comfort" class="section hide">
+  <div class="frame">
+    <h2>Comfort Corner 🤍</h2>
+    <p style="font-size:20px;line-height:1.7">
+      You don’t have to be strong always.<br>
+      It’s okay to pause.<br>
+      It’s okay to rest.
+    </p>
+    <button onclick="next('voice')">Final 💗</button>
+  </div>
+</div>
+
+<!-- VOICE NOTE -->
 <div id="voice" class="section hide">
   <div class="frame">
     <h2>Just listen 🎧</h2>
     <button onclick="playVoice()">Play Voice Note 💗</button>
-    <p style="margin-top:14px">Only for you, Jyoshna</p>
+    <p>Only for you, Jyoshna</p>
   </div>
 </div>
 
-<audio id="voiceNote" src="voice.mp3"></audio>
+<audio id="songAudio" src="song.mp3"></audio>
+<audio id="voiceAudio" src="voice.mp3"></audio>
 
 <script>
-let index=0;
-const slides=document.getElementsByClassName("slide");
+let taps=0;
+document.querySelector('.heart').onclick=()=>{
+  taps++;
+  if(taps===4){
+    document.getElementById('start').style.display='flex';
+  }
+};
 
+function next(id){
+  document.getElementById(id).style.display='flex';
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+function playSong(){
+  document.getElementById('songAudio').play();
+}
+function playVoice(){
+  document.getElementById('voiceAudio').play();
+}
+
+/* Slideshow */
+let s=0;
+const slides=document.getElementsByClassName('slide');
 function showSlides(){
   for(let i=0;i<slides.length;i++){
-    slides[i].style.display="none";
+    slides[i].style.display='none';
   }
-  index++;
-  if(index>slides.length){index=1}
-  slides[index-1].style.display="block";
+  s++;
+  if(s>slides.length){s=1}
+  slides[s-1].style.display='block';
 }
 showSlides();
-setInterval(showSlides,4500);
+setInterval(showSlides,4000);
 
-function changeSlide(n){
-  index+=n-1;
-  if(index<0) index=slides.length-1;
-  showSlides();
-}
-
-function show(id){
-  document.getElementById(id).style.display="flex";
-  document.getElementById(id).scrollIntoView({behavior:"smooth"});
-}
-
-function playVoice(){
-  document.getElementById("voiceNote").play();
-}
-
+/* Floating hearts */
 setInterval(()=>{
   const h=document.createElement("div");
-  h.className="heart";
+  h.className="floating";
   h.innerHTML="❤️";
   h.style.left=Math.random()*100+"vw";
   h.style.fontSize=(Math.random()*20+14)+"px";
