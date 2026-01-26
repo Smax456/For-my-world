@@ -320,6 +320,13 @@ function playVoice(){document.getElementById("voiceAudio").play();}
   function playVoice(){
   const song = document.getElementById("songAudio");
   const voice = document.getElementById("voiceAudio");
+    <audio id="songAudio">
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="voiceAudio">
+  <source src="voice.mp3" type="audio/mpeg">
+</audio>
 
   song.pause();        // stop song
   song.currentTime=0; // reset song
