@@ -13,6 +13,8 @@ body{
   color:white;
   overflow-x:hidden;
 }
+
+/* COMMON */
 .section{
   min-height:100vh;
   display:flex;
@@ -21,83 +23,135 @@ body{
   padding:25px;
 }
 .hide{display:none}
+
 .frame{
-  max-width:900px;width:100%;text-align:center;
-  padding:36px 26px;border-radius:30px;
+  max-width:900px;
+  width:100%;
+  text-align:center;
+  padding:36px 26px;
+  border-radius:30px;
   background:rgba(255,255,255,.15);
   backdrop-filter:blur(10px);
   border:2px solid rgba(255,255,255,.3);
   box-shadow:0 0 60px rgba(255,255,255,.35);
   animation:breath 4s infinite;
 }
+
 @keyframes breath{
   0%,100%{box-shadow:0 0 40px rgba(255,255,255,.3)}
   50%{box-shadow:0 0 70px rgba(255,255,255,.45)}
 }
+
 button{
-  margin-top:24px;padding:14px 36px;border:none;
-  border-radius:30px;font-size:18px;
-  font-weight:bold;background:white;
-  color:#ff4d6d;cursor:pointer;
+  margin-top:24px;
+  padding:14px 36px;
+  border:none;
+  border-radius:30px;
+  font-size:18px;
+  font-weight:bold;
+  background:white;
+  color:#ff4d6d;
+  cursor:pointer;
 }
 button:active{transform:scale(.96)}
-.heart{font-size:90px;animation:pulse 1.2s infinite;cursor:pointer}
+
+/* HEART LOCK */
+.heart{
+  font-size:90px;
+  animation:pulse 1.2s infinite;
+  cursor:pointer;
+}
 @keyframes pulse{
   0%,100%{transform:scale(1)}
   50%{transform:scale(1.15)}
 }
-.heart-move{animation:moveUp 1s forwards}
-@keyframes moveUp{to{transform:translateY(-200px);opacity:0}}
+.heart-move{
+  animation:moveUp 1s forwards;
+}
+@keyframes moveUp{
+  to{transform:translateY(-200px);opacity:0}
+}
 .counter{margin-top:10px;font-size:18px}
+
+/* IMAGE */
 .photo{
-  width:260px;height:260px;border-radius:22px;
-  object-fit:cover;margin-top:16px;
+  width:260px;
+  height:260px;
+  border-radius:22px;
+  object-fit:cover;
+  margin-top:16px;
   border:3px solid rgba(255,255,255,.45);
   box-shadow:0 0 45px rgba(255,255,255,.9);
 }
+
+/* LOVE LETTER TYPING */
 .type-text{
-  font-size:20px;line-height:1.7;margin-top:16px;
-  white-space:pre-line;border-right:2px solid white;
-  width:0;overflow:hidden;
-  animation:typing 4.5s steps(40,end) forwards,blink .8s infinite;
+  font-size:20px;
+  line-height:1.7;
+  margin-top:16px;
+  white-space:pre-line;
+  border-right:2px solid white;
+  width:0;
+  overflow:hidden;
+  animation:typing 4.5s steps(40,end) forwards,
+            blink .8s infinite;
 }
 @keyframes typing{to{width:100%}}
 @keyframes blink{50%{border-color:transparent}}
+
+/* SLIDESHOW */
 .slide{display:none}
 .slide img{
-  width:100%;max-width:320px;height:380px;
-  object-fit:cover;border-radius:22px;
+  width:100%;
+  max-width:320px;
+  height:380px;
+  object-fit:cover;
+  border-radius:22px;
   border:3px solid rgba(255,255,255,.4);
   box-shadow:0 0 40px rgba(255,255,255,.8);
 }
 .caption{
-  margin-top:10px;font-size:18px;
+  margin-top:10px;
+  font-size:18px;
   background:rgba(255,255,255,.25);
-  padding:10px;border-radius:14px;
+  padding:10px;
+  border-radius:14px;
 }
 .slide-controls{margin-top:15px}
-.slide-controls button{padding:10px 20px;font-size:16px}
-.rose{font-size:90px;animation:roseGlow 2.5s infinite}
+.slide-controls button{
+  padding:10px 20px;
+  font-size:16px;
+}
+
+/* ROSE */
+.rose{
+  font-size:90px;
+  animation:roseGlow 2.5s infinite;
+}
 @keyframes roseGlow{
   0%,100%{transform:scale(1);text-shadow:0 0 15px #fff}
   50%{transform:scale(1.2);text-shadow:0 0 35px #fff}
 }
 
-/* HEART GAME */
-#gameArea{
-  position:relative;
-  height:320px;
-  overflow:hidden;
-  margin-top:20px;
+/* ROSE PETALS */
+.petal{
+  position:fixed;
+  top:-20px;
+  animation:petalFall 7s linear infinite;
 }
-.catchHeart{
-  position:absolute;
-  top:-40px;
-  font-size:30px;
-  cursor:pointer;
-  animation:fall 4s linear forwards;
+@keyframes petalFall{
+  to{transform:translateY(120vh) rotate(360deg);opacity:0}
 }
-@keyframes fall{to{top:340px}}
+
+/* FLOAT HEARTS */
+.floating{
+  position:fixed;
+  bottom:-20px;
+  animation:floatUp 7s linear infinite;
+}
+@keyframes floatUp{
+  to{transform:translateY(-120vh)}
+}
 </style>
 </head>
 
@@ -152,23 +206,26 @@ from my heart.
 <div id="photo" class="section hide">
   <div class="frame">
     <img src="jyoshna.jpg" class="photo">
-    <p style="margin-top:16px;font-size:18px">Your smile feels like peace.</p>
+    <p style="margin-top:16px;font-size:18px">
+      Your smile feels like peace.
+    </p>
     <button onclick="next('last')">Next 🌙</button>
   </div>
 </div>
 
-<!-- LAST -->
+<!-- LAST WORDS -->
 <div id="last" class="section hide">
   <div class="frame">
     <h2>Last Words 💫</h2>
     <p style="font-size:20px;line-height:1.7">
-      Whatever happens,<br>I’ll always respect your feelings.
+      Whatever happens,<br>
+      I’ll always respect your feelings.
     </p>
     <button onclick="next('memory')">Our Memories 📸</button>
   </div>
 </div>
 
-<!-- MEMORY -->
+<!-- MEMORY SLIDESHOW -->
 <div id="memory" class="section hide">
   <div class="frame">
     <h2>Our Memory Lane 📸</h2>
@@ -184,17 +241,6 @@ from my heart.
       <button onclick="manualSlide(1)">Next ➡️</button>
     </div>
 
-    <button onclick="next('game')">Play a Game 🎮</button>
-  </div>
-</div>
-
-<!-- HEART GAME -->
-<div id="game" class="section hide">
-  <div class="frame">
-    <h2>Catch the Hearts 💗</h2>
-    <p>Score: <span id="score">0</span></p>
-    <div id="gameArea"></div>
-    <p id="gameMsg"></p>
     <button onclick="next('rose')">Continue 🌹</button>
   </div>
 </div>
@@ -213,7 +259,8 @@ from my heart.
   <div class="frame">
     <h2>Comfort Corner 🤍</h2>
     <p style="font-size:20px;line-height:1.7">
-      You don’t have to be strong always.<br>It’s okay to rest.
+      You don’t have to be strong always.<br>
+      It’s okay to rest.
     </p>
     <button onclick="next('voice')">Final 💗</button>
   </div>
@@ -234,13 +281,16 @@ from my heart.
 <script>
 /* HEART LOCK */
 let taps=0;
+const heart=document.getElementById("heart");
+const counter=document.getElementById("count");
 heart.onclick=()=>{
-  taps++;count.innerText=`${taps} / 4 taps`;
+  taps++;
+  counter.innerText=`${taps} / 4 taps`;
   if(taps===4){
     heart.classList.add("heart-move");
     setTimeout(()=>{
-      lock.style.display="none";
-      start.style.display="flex";
+      document.getElementById("lock").style.display="none";
+      document.getElementById("start").style.display="flex";
     },900);
   }
 };
@@ -251,47 +301,47 @@ function next(id){
   document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 
-/* AUDIO FIX */
-const song=document.getElementById("songAudio");
-const voice=document.getElementById("voiceAudio");
-function playSong(){voice.pause();song.currentTime=0;song.play();}
-function playVoice(){song.pause();voice.currentTime=0;voice.play();}
+/* AUDIO */
+function playSong(){document.getElementById("songAudio").play();}
+function playVoice(){document.getElementById("voiceAudio").play();}
 
-/* SLIDES */
+/* SLIDESHOW */
 let s=0;
 const slides=document.getElementsByClassName("slide");
 function showSlides(){
-  for(let i=0;i<slides.length;i++)slides[i].style.display="none";
+  for(let i=0;i<slides.length;i++) slides[i].style.display="none";
   slides[s].style.display="block";
 }
 function manualSlide(n){
-  s=(s+n+slides.length)%slides.length;
+  s+=n;
+  if(s<0) s=slides.length-1;
+  if(s>=slides.length) s=0;
   showSlides();
 }
 showSlides();
 setInterval(()=>{s=(s+1)%slides.length;showSlides();},4000);
 
-/* HEART GAME */
-let score=0;
+/* FLOATING HEARTS */
 setInterval(()=>{
-  if(game.style.display!=="flex")return;
   const h=document.createElement("div");
-  h.className="catchHeart";
-  h.innerHTML="💗";
-  h.style.left=Math.random()*90+"%";
-  h.onclick=()=>{
-    score++;
-    scoreSpan.innerText=score;
-    gameMsg.innerText=score>=5?"You caught my heart ❤️":"Keep going 🥰";
-    h.remove();
-  };
-  gameArea.appendChild(h);
-  setTimeout(()=>h.remove(),4000);
-},1200);
+  h.className="floating";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(Math.random()*20+14)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),7000);
+},600);
 
-const scoreSpan=document.getElementById("score");
-const gameMsg=document.getElementById("gameMsg");
-const gameArea=document.getElementById("gameArea");
+/* ROSE PETALS */
+setInterval(()=>{
+  const p=document.createElement("div");
+  p.className="petal";
+  p.innerHTML="🌸";
+  p.style.left=Math.random()*1+"vw";
+  p.style.fontSize=(Math.random()*1+1)+"px";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),7);
+},8);
 </script>
 
 </body>
