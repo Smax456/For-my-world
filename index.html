@@ -271,6 +271,7 @@ from my heart.
   <div class="frame">
     <h2>Just listen 🎧</h2>
     <button onclick="playVoice()">Play Voice Note 💗</button>
+    <button onclick="pauseSong()">Pause Song ⏸️</button>
     <p>Only for you, Jyoshna</p>
   </div>
 </div>
@@ -304,6 +305,14 @@ function next(id){
 /* AUDIO */
 function playSong(){document.getElementById("songAudio").play();}
 function playVoice(){document.getElementById("voiceAudio").play();}
+  function playVoice(){
+  const song = document.getElementById("songAudio");
+  const voice = document.getElementById("voiceAudio");
+
+  song.pause();        // stop song
+  song.currentTime=0; // reset song
+  voice.play();       // play voice
+  }
 
 /* SLIDESHOW */
 let s=0;
