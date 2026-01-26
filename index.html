@@ -11,10 +11,8 @@ body{
   font-family:'Segoe UI',sans-serif;
   background:linear-gradient(180deg,#ff9a9e,#fad0c4);
   color:white;
-  overflow-x:hidden;
+  overflow:hidden;
 }
-
-/* COMMON */
 .section{
   min-height:100vh;
   display:none;
@@ -34,16 +32,10 @@ body{
   backdrop-filter:blur(10px);
   border:2px solid rgba(255,255,255,.3);
   box-shadow:0 0 60px rgba(255,255,255,.35);
-  animation:breath 4s infinite;
-}
-
-@keyframes breath{
-  0%,100%{box-shadow:0 0 40px rgba(255,255,255,.3)}
-  50%{box-shadow:0 0 70px rgba(255,255,255,.45)}
 }
 
 button{
-  margin-top:24px;
+  margin-top:20px;
   padding:14px 36px;
   border:none;
   border-radius:30px;
@@ -53,75 +45,46 @@ button{
   color:#ff4d6d;
   cursor:pointer;
 }
-button:active{transform:scale(.96)}
 
-/* HEART LOCK */
-.heart{
-  font-size:90px;
-  animation:pulse 1.2s infinite;
-  cursor:pointer;
-}
-@keyframes pulse{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.15)}
-}
-.counter{margin-top:10px;font-size:18px}
+.heart{font-size:90px;cursor:pointer;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{transform:scale(1.15)}}
+.counter{margin-top:10px}
 
-/* IMAGE */
 .photo{
-  width:260px;
-  height:260px;
+  width:260px;height:260px;
   border-radius:22px;
   object-fit:cover;
   margin-top:16px;
-  border:3px solid rgba(255,255,255,.45);
-  box-shadow:0 0 45px rgba(255,255,255,.9);
 }
 
-/* TYPING */
-.type-text{
-  font-size:20px;
-  line-height:1.7;
-  margin-top:16px;
-  white-space:pre-line;
-  animation:fadeIn 3s forwards;
-}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
-/* SLIDES */
 .slide{display:none}
 .slide img{
-  width:100%;
-  max-width:320px;
-  height:380px;
-  object-fit:cover;
+  width:320px;height:380px;
   border-radius:22px;
-  border:3px solid rgba(255,255,255,.4);
-  box-shadow:0 0 40px rgba(255,255,255,.8);
+  object-fit:cover;
 }
-.caption{
-  margin-top:10px;
-  font-size:18px;
-  background:rgba(255,255,255,.25);
-  padding:10px;
-  border-radius:14px;
+.caption{margin-top:10px}
+.controls button{margin:10px}
+
+.floating-heart{
+  position:absolute;
+  font-size:30px;
+  animation:fall 4s linear;
+}
+@keyframes fall{
+  to{top:100vh;opacity:0}
 }
 
-/* FLOAT */
-.floating{
-  position:fixed;
-  bottom:-20px;
-  animation:floatUp 7s linear;
-}
-@keyframes floatUp{
-  to{transform:translateY(-120vh);opacity:0}
+.game-heart{
+  font-size:50px;
+  position:absolute;
+  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<!-- AUDIO -->
 <audio id="songAudio" src="song.mp3"></audio>
 <audio id="voiceAudio" src="voice.mp3"></audio>
 
@@ -134,14 +97,15 @@ button:active{transform:scale(.96)}
   </div>
 </div>
 
+<!-- START -->
 <div class="section" id="start">
   <div class="frame">
     <h1>Hey Jyoshna 💖</h1>
-    <p>This little world is made with care</p>
     <button onclick="next('song')">Tap to Begin 💌</button>
   </div>
 </div>
 
+<!-- SONG -->
 <div class="section" id="song">
   <div class="frame">
     <h2>I Wanna Be Yours 🎶</h2>
@@ -150,50 +114,68 @@ button:active{transform:scale(.96)}
   </div>
 </div>
 
+<!-- LETTER -->
 <div class="section" id="letter">
   <div class="frame">
-    <h2>My Love Letter 💌</h2>
-    <div class="type-text">
-I don’t promise perfection,
-but I promise honesty,
-respect, and genuine care.
-
-This is written
-slowly,
-intentionally,
-from my heart.
-    </div>
+    <p style="font-size:20px;line-height:1.6">
+      I don’t promise perfection,<br>
+      but I promise honesty and care 🤍
+    </p>
     <button onclick="next('photo')">Next 🤍</button>
   </div>
 </div>
 
+<!-- PHOTO -->
 <div class="section" id="photo">
   <div class="frame">
     <img src="jyoshna.jpg" class="photo">
-    <p style="margin-top:16px;font-size:18px">
-      Your smile feels like peace.
-    </p>
-    <button onclick="next('memory')">Next 🌙</button>
+    <p>Your smile feels like peace 🌙</p>
+    <button onclick="next('memory')">Next 📸</button>
   </div>
 </div>
 
+<!-- SLIDES -->
 <div class="section" id="memory">
   <div class="frame">
-    <h2>Our Memory Lane 📸</h2>
+    <h2>Our Memories 📸</h2>
 
-    <div class="slide"><img src="mem1.jpg"><div class="caption">🌱 When we met</div></div>
+    <div class="slide"><img src="mem1.jpg"><div class="caption">🌱 First meet</div></div>
     <div class="slide"><img src="mem2.jpg"><div class="caption">💞 Fell in love</div></div>
-    <div class="slide"><img src="mem3.jpg"><div class="caption">📸 Together</div></div>
+    <div class="slide"><img src="mem3.jpg"><div class="caption">🫶 Together</div></div>
+
+    <div class="controls">
+      <button onclick="changeSlide(-1)">⬅️ Prev</button>
+      <button onclick="changeSlide(1)">Next ➡️</button>
+    </div>
 
     <button onclick="next('voice')">Continue 💗</button>
   </div>
 </div>
 
+<!-- VOICE -->
 <div class="section" id="voice">
   <div class="frame">
     <h2>Just listen 🎧</h2>
     <button onclick="playVoice()">Play Voice 💗</button>
-    <p>Only for you, Jyoshna</p>
+    <button onclick="next('more')">WANT MORE? 🫣</button>
+  </div>
+</div>
+
+<!-- WANT MORE -->
+<div class="section" id="more">
+  <div class="frame">
+    <h2>NOT OVER 😌</h2>
+    <p>Dear… a small game for you 💞<br>Wanna play?</p>
+    <button onclick="next('game')">YES 💗</button>
+  </div>
+</div>
+
+<!-- GAME -->
+<div class="section" id="game">
+  <div class="frame">
+    <h2>Catch the Hearts ❤️</h2>
+    <p id="gameText">Catch them fast!</p>
+    <p>Score: <span id="score">0</span></p>
   </div>
 </div>
 
@@ -204,52 +186,53 @@ function next(id){
   document.getElementById(id).classList.add('active');
 }
 
-/* HEART LOCK */
+/* LOCK */
 let taps=0;
-const heart=document.getElementById("heart");
-const count=document.getElementById("count");
 heart.onclick=()=>{
-  taps++;
-  count.innerText=`${taps} / 4 taps`;
-  if(taps===4){
-    next('start');
-  }
-};
+  taps++; count.innerText=`${taps} / 4 taps`;
+  if(taps===4) next('start');
+}
 
 /* AUDIO */
 function playSong(){
-  const song=document.getElementById("songAudio");
-  const voice=document.getElementById("voiceAudio");
-  voice.pause(); voice.currentTime=0;
-  song.play();
+  voiceAudio.pause(); voiceAudio.currentTime=0;
+  songAudio.play();
 }
 function playVoice(){
-  const song=document.getElementById("songAudio");
-  const voice=document.getElementById("voiceAudio");
-  song.pause(); song.currentTime=0;
-  voice.play();
+  songAudio.pause(); songAudio.currentTime=0;
+  voiceAudio.play();
 }
 
 /* SLIDES */
-let s=0;
-const slides=document.getElementsByClassName("slide");
-function showSlides(){
-  for(let i=0;i<slides.length;i++)slides[i].style.display="none";
-  slides[s].style.display="block";
-}
-showSlides();
-setInterval(()=>{s=(s+1)%slides.length;showSlides();},3000);
+let s=0; const slides=document.querySelectorAll('.slide');
+function showSlide(){slides.forEach(sl=>sl.style.display='none');slides[s].style.display='block'}
+function changeSlide(n){s=(s+n+slides.length)%slides.length;showSlide()}
+showSlide();
 
-/* FLOAT HEARTS */
-setInterval(()=>{
+/* GAME */
+let score=0;
+const reactions=["Keep it up 💕","Wow 😍","Great darling 💖"];
+function spawnHeart(){
+  if(!document.getElementById("game").classList.contains("active"))return;
   const h=document.createElement("div");
-  h.className="floating";
+  h.className="game-heart";
   h.innerHTML="❤️";
-  h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(Math.random()*20+14)+"px";
+  h.style.left=Math.random()*80+"vw";
+  h.style.top=Math.random()*70+"vh";
+  h.onclick=()=>{
+    score++; scoreEl.innerText=score;
+    gameText.innerText=reactions[Math.min(score-1,2)];
+    h.remove();
+    if(score===5){
+      gameText.innerText="This way… you took my heart ❤️";
+    }
+  }
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),7000);
-},700);
+  setTimeout(()=>h.remove(),3000);
+}
+const scoreEl=document.getElementById("score");
+const gameText=document.getElementById("gameText");
+setInterval(spawnHeart,1200);
 </script>
 
 </body>
