@@ -17,12 +17,12 @@ body{
 /* COMMON */
 .section{
   min-height:100vh;
-  display:flex;
+  display:none;
   justify-content:center;
   align-items:center;
   padding:25px;
 }
-.hide{display:none}
+.section.active{display:flex}
 
 .frame{
   max-width:900px;
@@ -65,12 +65,6 @@ button:active{transform:scale(.96)}
   0%,100%{transform:scale(1)}
   50%{transform:scale(1.15)}
 }
-.heart-move{
-  animation:moveUp 1s forwards;
-}
-@keyframes moveUp{
-  to{transform:translateY(-200px);opacity:0}
-}
 .counter{margin-top:10px;font-size:18px}
 
 /* IMAGE */
@@ -84,22 +78,17 @@ button:active{transform:scale(.96)}
   box-shadow:0 0 45px rgba(255,255,255,.9);
 }
 
-/* LOVE LETTER TYPING */
+/* TYPING */
 .type-text{
   font-size:20px;
   line-height:1.7;
   margin-top:16px;
   white-space:pre-line;
-  border-right:2px solid white;
-  width:0;
-  overflow:hidden;
-  animation:typing 4.5s steps(40,end) forwards,
-            blink .8s infinite;
+  animation:fadeIn 3s forwards;
 }
-@keyframes typing{to{width:100%}}
-@keyframes blink{50%{border-color:transparent}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-/* SLIDESHOW */
+/* SLIDES */
 .slide{display:none}
 .slide img{
   width:100%;
@@ -117,48 +106,27 @@ button:active{transform:scale(.96)}
   padding:10px;
   border-radius:14px;
 }
-.slide-controls{margin-top:15px}
-.slide-controls button{
-  padding:10px 20px;
-  font-size:16px;
-}
 
-/* ROSE */
-.rose{
-  font-size:90px;
-  animation:roseGlow 2.5s infinite;
-}
-@keyframes roseGlow{
-  0%,100%{transform:scale(1);text-shadow:0 0 15px #fff}
-  50%{transform:scale(1.2);text-shadow:0 0 35px #fff}
-}
-
-/* ROSE PETALS */
-.petal{
-  position:fixed;
-  top:-20px;
-  animation:petalFall 7s linear infinite;
-}
-@keyframes petalFall{
-  to{transform:translateY(120vh) rotate(360deg);opacity:0}
-}
-
-/* FLOAT HEARTS */
+/* FLOAT */
 .floating{
   position:fixed;
   bottom:-20px;
-  animation:floatUp 7s linear infinite;
+  animation:floatUp 7s linear;
 }
 @keyframes floatUp{
-  to{transform:translateY(-120vh)}
+  to{transform:translateY(-120vh);opacity:0}
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEART LOCK -->
-<div class="section" id="lock">
+<!-- AUDIO -->
+<audio id="songAudio" src="song.mp3"></audio>
+<audio id="voiceAudio" src="voice.mp3"></audio>
+
+<!-- LOCK -->
+<div class="section active" id="lock">
   <div class="frame">
     <div class="heart" id="heart">❤️</div>
     <div class="counter" id="count">0 / 4 taps</div>
@@ -166,8 +134,7 @@ button:active{transform:scale(.96)}
   </div>
 </div>
 
-<!-- TAP TO BEGIN -->
-<div id="start" class="section hide">
+<div class="section" id="start">
   <div class="frame">
     <h1>Hey Jyoshna 💖</h1>
     <p>This little world is made with care</p>
@@ -175,8 +142,7 @@ button:active{transform:scale(.96)}
   </div>
 </div>
 
-<!-- SONG -->
-<div id="song" class="section hide">
+<div class="section" id="song">
   <div class="frame">
     <h2>I Wanna Be Yours 🎶</h2>
     <button onclick="playSong()">Play Song ▶️</button>
@@ -184,8 +150,7 @@ button:active{transform:scale(.96)}
   </div>
 </div>
 
-<!-- LOVE LETTER -->
-<div id="letter" class="section hide">
+<div class="section" id="letter">
   <div class="frame">
     <h2>My Love Letter 💌</h2>
     <div class="type-text">
@@ -202,154 +167,80 @@ from my heart.
   </div>
 </div>
 
-<!-- HER PHOTO -->
-<div id="photo" class="section hide">
+<div class="section" id="photo">
   <div class="frame">
     <img src="jyoshna.jpg" class="photo">
     <p style="margin-top:16px;font-size:18px">
       Your smile feels like peace.
     </p>
-    <button onclick="next('last')">Next 🌙</button>
+    <button onclick="next('memory')">Next 🌙</button>
   </div>
 </div>
 
-<!-- LAST WORDS -->
-<div id="last" class="section hide">
-  <div class="frame">
-    <h2>Last Words 💫</h2>
-    <p style="font-size:20px;line-height:1.7">
-      Whatever happens,<br>
-      I’ll always respect your feelings.
-    </p>
-    <button onclick="next('memory')">Our Memories 📸</button>
-  </div>
-</div>
-
-<!-- MEMORY SLIDESHOW -->
-<div id="memory" class="section hide">
+<div class="section" id="memory">
   <div class="frame">
     <h2>Our Memory Lane 📸</h2>
 
     <div class="slide"><img src="mem1.jpg"><div class="caption">🌱 When we met</div></div>
-    <div class="slide"><img src="mem2.jpg"><div class="caption">💞 When we fell in love</div></div>
-    <div class="slide"><img src="mem3.jpg"><div class="caption">📸 Our pic together</div></div>
-    <div class="slide"><img src="mem4.jpg"><div class="caption">💖 My favorite pic of you</div></div>
-    <div class="slide"><img src="mem5.jpg"><div class="caption">🫶 Our first matching PFP</div></div>
+    <div class="slide"><img src="mem2.jpg"><div class="caption">💞 Fell in love</div></div>
+    <div class="slide"><img src="mem3.jpg"><div class="caption">📸 Together</div></div>
 
-    <div class="slide-controls">
-      <button onclick="manualSlide(-1)">⬅️ Prev</button>
-      <button onclick="manualSlide(1)">Next ➡️</button>
-    </div>
-
-    <button onclick="next('rose')">Continue 🌹</button>
+    <button onclick="next('voice')">Continue 💗</button>
   </div>
 </div>
 
-<!-- ROSE -->
-<div id="rose" class="section hide">
-  <div class="frame">
-    <div class="rose">🌹</div>
-    <p>This rose is my gift to you</p>
-    <button onclick="next('comfort')">Next 🤍</button>
-  </div>
-</div>
-
-<!-- COMFORT -->
-<div id="comfort" class="section hide">
-  <div class="frame">
-    <h2>Comfort Corner 🤍</h2>
-    <p style="font-size:20px;line-height:1.7">
-      You don’t have to be strong always.<br>
-      It’s okay to rest.
-    </p>
-    <button onclick="next('voice')">Final 💗</button>
-  </div>
-</div>
-
-<!-- VOICE -->
-<div id="voice" class="section hide">
+<div class="section" id="voice">
   <div class="frame">
     <h2>Just listen 🎧</h2>
-    <button onclick="playVoice()">Play Voice Note 💗</button>
+    <button onclick="playVoice()">Play Voice 💗</button>
     <p>Only for you, Jyoshna</p>
-    <button onclick="next('more')">WANT MORE? 🫣</button>
   </div>
 </div>
-  
-  <!-- MORE -->
-<div id="more" class="section hide">
-  <div class="frame">
-    <h2>Inka ayipoledu 🤍</h2>
-
-    <p style="font-size:20px;line-height:1.7">
-      Neekosam inka oka game vundi hehe 🤭
-      Aadthava mari? .<br>
-    </p>
-
-    <button onclick="next('game')">HAAN 💗</button>
-  </div>
-</div>
-
 
 <script>
+/* NAV */
+function next(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
 /* HEART LOCK */
 let taps=0;
 const heart=document.getElementById("heart");
-const counter=document.getElementById("count");
+const count=document.getElementById("count");
 heart.onclick=()=>{
   taps++;
-  counter.innerText=`${taps} / 4 taps`;
+  count.innerText=`${taps} / 4 taps`;
   if(taps===4){
-    heart.classList.add("heart-move");
-    setTimeout(()=>{
-      document.getElementById("lock").style.display="none";
-      document.getElementById("start").style.display="flex";
-    },900);
+    next('start');
   }
 };
 
-/* NAV */
-function next(id){
-  document.getElementById(id).style.display="flex";
-  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+/* AUDIO */
+function playSong(){
+  const song=document.getElementById("songAudio");
+  const voice=document.getElementById("voiceAudio");
+  voice.pause(); voice.currentTime=0;
+  song.play();
+}
+function playVoice(){
+  const song=document.getElementById("songAudio");
+  const voice=document.getElementById("voiceAudio");
+  song.pause(); song.currentTime=0;
+  voice.play();
 }
 
-/* AUDIO */
-function playSong(){document.getElementById("songAudio").play();}
-function playVoice(){document.getElementById("voiceAudio").play();}
-  function playVoice(){
-  const song = document.getElementById("songAudio");
-  const voice = document.getElementById("voiceAudio");
-    <audio id="songAudio">
-  <source src="song.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="voiceAudio">
-  <source src="voice.mp3" type="audio/mpeg">
-</audio>
-
-  song.pause();        // stop song
-  song.currentTime=0; // reset song
-  voice.play();       // play voice
-  }
-
-/* SLIDESHOW */
+/* SLIDES */
 let s=0;
 const slides=document.getElementsByClassName("slide");
 function showSlides(){
-  for(let i=0;i<slides.length;i++) slides[i].style.display="none";
+  for(let i=0;i<slides.length;i++)slides[i].style.display="none";
   slides[s].style.display="block";
 }
-function manualSlide(n){
-  s+=n;
-  if(s<0) s=slides.length-1;
-  if(s>=slides.length) s=0;
-  showSlides();
-}
 showSlides();
-setInterval(()=>{s=(s+1)%slides.length;showSlides();},4000);
+setInterval(()=>{s=(s+1)%slides.length;showSlides();},3000);
 
-/* FLOATING HEARTS */
+/* FLOAT HEARTS */
 setInterval(()=>{
   const h=document.createElement("div");
   h.className="floating";
@@ -358,18 +249,7 @@ setInterval(()=>{
   h.style.fontSize=(Math.random()*20+14)+"px";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),7000);
-},600);
-
-/* ROSE PETALS */
-setInterval(()=>{
-  const p=document.createElement("div");
-  p.className="petal";
-  p.innerHTML="🌸";
-  p.style.left=Math.random()*1+"vw";
-  p.style.fontSize=(Math.random()*1+1)+"px";
-  document.body.appendChild(p);
-  setTimeout(()=>p.remove(),7);
-},8);
+},700);
 </script>
 
 </body>
