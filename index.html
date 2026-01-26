@@ -26,16 +26,16 @@ body{
   max-width:900px;
   width:100%;
   text-align:center;
-  padding:36px 26px;
+  padding:40px 28px;
   border-radius:30px;
-  background:rgba(255,255,255,.15);
-  backdrop-filter:blur(10px);
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(12px);
   border:2px solid rgba(255,255,255,.3);
   box-shadow:0 0 60px rgba(255,255,255,.35);
 }
 
 button{
-  margin-top:20px;
+  margin-top:22px;
   padding:14px 36px;
   border:none;
   border-radius:30px;
@@ -45,97 +45,123 @@ button{
   color:#ff4d6d;
   cursor:pointer;
 }
+button:active{transform:scale(.95)}
 
-.heart{font-size:90px;cursor:pointer;animation:pulse 1.2s infinite}
+.heart{
+  font-size:90px;
+  cursor:pointer;
+  animation:pulse 1.2s infinite;
+}
 @keyframes pulse{50%{transform:scale(1.15)}}
-.counter{margin-top:10px}
+.counter{margin-top:10px;font-size:18px}
 
 .photo{
   width:260px;height:260px;
   border-radius:22px;
   object-fit:cover;
   margin-top:16px;
+  border:3px solid rgba(255,255,255,.4);
 }
 
+/* SLIDESHOW */
 .slide{display:none}
 .slide img{
   width:320px;height:380px;
-  border-radius:22px;
   object-fit:cover;
+  border-radius:22px;
+  border:3px solid rgba(255,255,255,.4);
+  box-shadow:0 0 40px rgba(255,255,255,.7);
 }
-.caption{margin-top:10px}
-.controls button{margin:10px}
+.caption{margin-top:10px;font-size:18px}
+.slide-controls button{margin:10px}
 
-.floating-heart{
-  position:absolute;
-  font-size:30px;
-  animation:fall 4s linear;
-}
-@keyframes fall{
-  to{top:100vh;opacity:0}
-}
-
+/* GAME */
 .game-heart{
-  font-size:50px;
   position:absolute;
+  font-size:45px;
   cursor:pointer;
+  animation:floatUp 4s linear;
+}
+@keyframes floatUp{
+  from{transform:translateY(0)}
+  to{transform:translateY(-120vh);opacity:0}
+}
+
+/* 🎁 GIFT ANIMATION */
+.gift-icons{
+  font-size:90px;
+  animation:giftPulse 1.5s infinite;
+}
+@keyframes giftPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.2)}
+}
+.gift-text{
+  font-size:22px;
+  line-height:1.6;
+  animation:fadeIn 2s forwards;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.gift-heart{
+  position:absolute;
+  font-size:25px;
+  animation:giftFloat 4s linear;
+}
+@keyframes giftFloat{
+  to{transform:translateY(-120vh);opacity:0}
 }
 </style>
 </head>
 
 <body>
 
+<!-- AUDIO -->
 <audio id="songAudio" src="song.mp3"></audio>
 <audio id="voiceAudio" src="voice.mp3"></audio>
 
-<!-- LOCK -->
+<!-- 1. HEART LOCK -->
 <div class="section active" id="lock">
   <div class="frame">
-    <div class="heart" id="heart">❤️</div>
-    <div class="counter" id="count">0 / 4 taps</div>
+    <div class="heart" id="lockHeart">❤️</div>
+    <div class="counter" id="lockCount">0 / 4 taps</div>
     <p>Tap the heart to unlock</p>
   </div>
 </div>
 
-<!-- START -->
-<div class="section" id="start">
+<!-- 2. TAP TO BEGIN -->
+<div class="section" id="begin">
   <div class="frame">
     <h1>Hey Jyoshna 💖</h1>
-    <button onclick="next('song')">Tap to Begin 💌</button>
+    <button onclick="go('song')">Tap to Begin 💌</button>
   </div>
 </div>
 
-<!-- SONG -->
+<!-- 3. SONG -->
 <div class="section" id="song">
   <div class="frame">
     <h2>I Wanna Be Yours 🎶</h2>
     <button onclick="playSong()">Play Song ▶️</button>
-    <button onclick="next('letter')">Continue 💗</button>
+    <button onclick="go('letter')">Continue 💗</button>
   </div>
 </div>
 
-<!-- LETTER -->
+<!-- 4. LOVE LETTER -->
 <div class="section" id="letter">
   <div class="frame">
-    <p style="font-size:20px;line-height:1.6">
+    <p style="font-size:20px;line-height:1.7">
       I don’t promise perfection,<br>
-      but I promise honesty and care 🤍
+      but I promise honesty,<br>
+      care, and respect 🤍
     </p>
-    <button onclick="next('photo')">Next 🤍</button>
+    <button onclick="go('slideshow')">Next 📸</button>
   </div>
 </div>
 
-<!-- PHOTO -->
-<div class="section" id="photo">
-  <div class="frame">
-    <img src="jyoshna.jpg" class="photo">
-    <p>Your smile feels like peace 🌙</p>
-    <button onclick="next('memory')">Next 📸</button>
-  </div>
-</div>
-
-<!-- SLIDES -->
-<div class="section" id="memory">
+<!-- 🔁 SLIDESHOW -->
+<div class="section" id="slideshow">
   <div class="frame">
     <h2>Our Memories 📸</h2>
 
@@ -143,54 +169,79 @@ button{
     <div class="slide"><img src="mem2.jpg"><div class="caption">💞 Fell in love</div></div>
     <div class="slide"><img src="mem3.jpg"><div class="caption">🫶 Together</div></div>
 
-    <div class="controls">
+    <div class="slide-controls">
       <button onclick="changeSlide(-1)">⬅️ Prev</button>
       <button onclick="changeSlide(1)">Next ➡️</button>
     </div>
 
-    <button onclick="next('voice')">Continue 💗</button>
+    <button onclick="go('comfort')">Next 🤍</button>
   </div>
 </div>
 
-<!-- VOICE -->
+<!-- 5. COMFORT -->
+<div class="section" id="comfort">
+  <div class="frame">
+    <h2>Comfort Corner 🤍</h2>
+    <p style="font-size:20px;line-height:1.7">
+      You don’t have to be strong always.<br>
+      It’s okay to rest 🌙
+    </p>
+    <button onclick="go('voice')">Next 🎧</button>
+  </div>
+</div>
+
+<!-- 6. VOICE -->
 <div class="section" id="voice">
   <div class="frame">
-    <h2>Just listen 🎧</h2>
+    <h2>Just Listen 🎧</h2>
     <button onclick="playVoice()">Play Voice 💗</button>
-    <button onclick="next('more')">WANT MORE? 🫣</button>
+    <button onclick="go('notover')">WANT MORE? 🫣</button>
   </div>
 </div>
 
-<!-- WANT MORE -->
-<div class="section" id="more">
+<!-- 7. NOT OVER -->
+<div class="section" id="notover">
   <div class="frame">
-    <h2>NOT OVER 😌</h2>
-    <p>Dear… a small game for you 💞<br>Wanna play?</p>
-    <button onclick="next('game')">YES 💗</button>
+    <h2>Not Over 😌</h2>
+    <p>Dear… a small game for you 💞</p>
+    <button onclick="go('game')">YES 💗</button>
   </div>
 </div>
 
-<!-- GAME -->
+<!-- 8. GAME -->
 <div class="section" id="game">
   <div class="frame">
-    <h2>Catch the Hearts ❤️</h2>
-    <p id="gameText">Catch them fast!</p>
-    <p>Score: <span id="score">0</span></p>
+    <h2>Catch My Hearts ❤️</h2>
+    <p id="gameMsg">Catch 25 hearts to unlock your gift 🎁</p>
+    <p>Score: <span id="score">0</span> / 25</p>
+  </div>
+</div>
+
+<!-- 9. 🎁 GIFT -->
+<div class="section" id="gift">
+  <div class="frame">
+    <h2>Your Gift 🎁</h2>
+    <div class="gift-icons">💋🌹</div>
+    <p class="gift-text">
+      You caught 25 hearts ❤️<br>
+      This kiss and rose are yours…<br>
+      Because you already took my heart 💞
+    </p>
   </div>
 </div>
 
 <script>
 /* NAV */
-function next(id){
+function go(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
 /* LOCK */
 let taps=0;
-heart.onclick=()=>{
-  taps++; count.innerText=`${taps} / 4 taps`;
-  if(taps===4) next('start');
+lockHeart.onclick=()=>{
+  taps++; lockCount.innerText=`${taps} / 4 taps`;
+  if(taps===4) go('begin');
 }
 
 /* AUDIO */
@@ -204,35 +255,60 @@ function playVoice(){
 }
 
 /* SLIDES */
-let s=0; const slides=document.querySelectorAll('.slide');
-function showSlide(){slides.forEach(sl=>sl.style.display='none');slides[s].style.display='block'}
-function changeSlide(n){s=(s+n+slides.length)%slides.length;showSlide()}
+let slideIndex=0;
+const slides=document.querySelectorAll('.slide');
+function showSlide(){
+  slides.forEach(s=>s.style.display='none');
+  slides[slideIndex].style.display='block';
+}
+function changeSlide(n){
+  slideIndex=(slideIndex+n+slides.length)%slides.length;
+  showSlide();
+}
 showSlide();
+setInterval(()=>{slideIndex=(slideIndex+1)%slides.length;showSlide()},4000);
 
 /* GAME */
 let score=0;
-const reactions=["Keep it up 💕","Wow 😍","Great darling 💖"];
+const scoreEl=document.getElementById("score");
+const gameMsg=document.getElementById("gameMsg");
+
 function spawnHeart(){
   if(!document.getElementById("game").classList.contains("active"))return;
   const h=document.createElement("div");
   h.className="game-heart";
   h.innerHTML="❤️";
   h.style.left=Math.random()*80+"vw";
-  h.style.top=Math.random()*70+"vh";
+  h.style.bottom="-40px";
+
   h.onclick=()=>{
     score++; scoreEl.innerText=score;
-    gameText.innerText=reactions[Math.min(score-1,2)];
-    h.remove();
-    if(score===5){
-      gameText.innerText="This way… you took my heart ❤️";
+    if(score<10) gameMsg.innerText="Keep it up 💕";
+    else if(score<20) gameMsg.innerText="Wow 😍";
+    else if(score<25) gameMsg.innerText="Great darling 💖";
+    else{
+      go('gift');
+      giftAnimation();
     }
-  }
+    h.remove();
+  };
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),3000);
+  setTimeout(()=>h.remove(),4000);
 }
-const scoreEl=document.getElementById("score");
-const gameText=document.getElementById("gameText");
-setInterval(spawnHeart,1200);
+setInterval(spawnHeart,900);
+
+/* 🎁 GIFT HEARTS */
+function giftAnimation(){
+  for(let i=0;i<25;i++){
+    const gh=document.createElement("div");
+    gh.className="gift-heart";
+    gh.innerHTML="❤️";
+    gh.style.left=Math.random()*100+"vw";
+    gh.style.bottom="-20px";
+    document.body.appendChild(gh);
+    setTimeout(()=>gh.remove(),4000);
+  }
+}
 </script>
 
 </body>
