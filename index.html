@@ -239,7 +239,10 @@ from my heart.
 </div>  <audio id="songAudio" src="song.mp3"></audio>
 <audio id="voiceAudio" src="voice.mp3"></audio>
 
+  </style>
+</head>
 
+<body>
   <!-- QUESTION SECTION -->
   <div id="question" class="section active">
     <div class="container">
@@ -248,6 +251,7 @@ from my heart.
       <button id="noBtn">No</button>
     </div>
   </div>
+
 
   <!-- FINAL LETTER SECTION -->
   <div id="final" class="section">
@@ -363,4 +367,31 @@ setInterval(()=>{
 },8);  
 </script>  </body>  
 
+.container {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  margin: auto;
+  text-align: center;
+}
 
+#yesBtn, #noBtn {
+  padding: 10px 20px;
+  font-size: 18px;
+}
+
+#noBtn {
+  position: absolute;
+  transition: all 0.15s ease;
+}
+const noBtn = document.getElementById("noBtn");
+
+function moveButton() {
+  const x = Math.random() * 200;
+  const y = Math.random() * 120;
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("mouseenter", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
