@@ -366,3 +366,95 @@ setInterval(()=>{
 </script>  </body>  
 
 
+<script>
+/* HEART LOCK */
+let taps = 0;
+const heart = document.getElementById("heart");
+const counter = document.getElementById("count");
+
+heart.onclick = () => {
+  taps++;
+  counter.innerText = `${taps} / 4 taps`;
+  if (taps === 4) {
+    heart.classList.add("heart-move");
+    setTimeout(() => {
+      document.getElementById("lock").style.display = "none";
+      document.getElementById("start").style.display = "flex";
+    }, 900);
+  }
+};
+
+/* NAVIGATION */
+function next(id) {
+  document.querySelectorAll(".section").forEach(sec => {
+    sec.style.display = "none";
+  });
+  document.getElementById(id).style.display = "flex";
+}
+
+/* AUDIO */
+function playSong() {
+  document.getElementById("songAudio").play();
+}
+
+function playVoice() {
+  const song = document.getElementById("songAudio");
+  const voice = document.getElementById("voiceAudio");
+  song.pause();
+  song.currentTime = 0;
+  voice.play();
+}
+
+/* NO BUTTON RUN AWAY 😈 */
+const noBtn = document.getElementById("noBtn");
+if (noBtn) {
+  function moveButton() {
+    noBtn.style.left = Math.random() * 220 + "px";
+    noBtn.style.top = Math.random() * 140 + "px";
+  }
+  noBtn.addEventListener("mouseenter", moveButton);
+  noBtn.addEventListener("touchstart", moveButton);
+}
+
+/* SLIDESHOW */
+let s = 0;
+const slides = document.getElementsByClassName("slide");
+
+function showSlides() {
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slides[s].style.display = "block";
+}
+function manualSlide(n) {
+  s = (s + n + slides.length) % slides.length;
+  showSlides();
+}
+showSlides();
+setInterval(() => {
+  s = (s + 1) % slides.length;
+  showSlides();
+}, 4000);
+
+/* FLOATING HEARTS */
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "floating";
+  h.innerHTML = "❤️";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.fontSize = Math.random() * 20 + 14 + "px";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 7000);
+}, 600);
+
+/* ROSE PETALS */
+setInterval(() => {
+  const p = document.createElement("div");
+  p.className = "petal";
+  p.innerHTML = "🌸";
+  p.style.left = Math.random() * 100 + "vw";
+  p.style.fontSize = Math.random() * 20 + 10 + "px";
+  document.body.appendChild(p);
+  setTimeout(() => p.remove(), 7000);
+}, 800);
+</script>
