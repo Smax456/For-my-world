@@ -239,32 +239,30 @@ from my heart.
 </div>  <audio id="songAudio" src="song.mp3"></audio>
 <audio id="voiceAudio" src="voice.mp3"></audio>
 
-  </style>
-</head>
-
-<body>
   <!-- QUESTION SECTION -->
-  <div id="question" class="section active">
+<div id="question" class="section hide">
+  <div class="frame">
+    <h1>Neeku ee gift nachinda 🥺🤌?</h1>
     <div class="container">
-      <h1>Neeku ee gift nachinda 🥺🤌?</h1>
       <button id="yesBtn" onclick="next('final')">Yes!</button>
       <button id="noBtn">No</button>
     </div>
   </div>
+</div>
 
+<!-- FINAL LETTER -->
+<div id="final" class="section hide">
+  <div class="frame">
+    <h2>Final Letter 💘</h2>
+    <div class="type-text">
+Naaku telusu neeku nachuthundi ani 😘
 
-  <!-- FINAL LETTER SECTION -->
-  <div id="final" class="section">
-    <div class="frame">
-      <h2>Final Letter 💘</h2>
-      <div class="type-text">
-        Naaku telusu neeku nachuthundi ani 😘<br><br>
-        THANK YOU so much bangaram 💕<br>
-        Once again Happy Valentine’s Day my darling 💐🎊😊<br>
-        Love you so much 🫶💓
-      </div>
+THANK YOU so much bangaram 💕  
+Once again Happy Valentine’s Day my darling 💐🎊😊  
+Love you so much 🫶💓
     </div>
   </div>
+</div>
 
   <!-- ✅ JAVASCRIPT JUST BEFORE BODY -->
   <script>
@@ -367,31 +365,4 @@ setInterval(()=>{
 },8);  
 </script>  </body>  
 
-.container {
-  position: relative;
-  width: 300px;
-  height: 200px;
-  margin: auto;
-  text-align: center;
-}
 
-#yesBtn, #noBtn {
-  padding: 10px 20px;
-  font-size: 18px;
-}
-
-#noBtn {
-  position: absolute;
-  transition: all 0.15s ease;
-}
-const noBtn = document.getElementById("noBtn");
-
-function moveButton() {
-  const x = Math.random() * 200;
-  const y = Math.random() * 120;
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-}
-
-noBtn.addEventListener("mouseenter", moveButton);
-noBtn.addEventListener("touchstart", moveButton);
