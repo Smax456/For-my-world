@@ -233,10 +233,41 @@ from my heart.
   <div class="frame">  
     <h2>Just listen 🎧</h2>  
     <button onclick="playVoice()">Play Voice Note 💗</button>  
-    <p>Only for you, Jyoshna</p>  
+    <p>Only for you, Jyoshna</p> 
+    <button onclick="next('question')">Next oka question 😔</button>
   </div>  
 </div>  <audio id="songAudio" src="song.mp3"></audio>
 <audio id="voiceAudio" src="voice.mp3"></audio>
+  
+</div>  <!-- QUESTION -->  <div id="question" class="section hide">  
+  <div class="container">
+  <h1>Neeku ee gift nachinda🥺🤌?</h1>
+  <button onclick="next('final') >Yes!</button>
+  <button id="noBtn">No</button>
+    
+   { /* noBtn */
+ position: absolute;
+  transition: 0.1s; /* Makes the move look smoother */
+}
+
+.container {
+  text-align: center;
+  margin-top: 20%;
+}
+
+</div>
+  
+</div>  <!--LAST LETTER -->  <div id="final" class="section hide">  
+  <div class="frame">  
+    <h2>Final Letter 💘</h2>  
+    <div class="type-text">  
+Naaku telusu neeku nachuthundi ani 😘
+      THANK you so much bangaram 💕
+      Once again happy valentine's day to you my darling 💐🎊😊
+      Love you so much 🫶💓
+</div>
+
+
 
 <script>  
 /* HEART LOCK */  
@@ -312,3 +343,18 @@ setInterval(()=>{
 },8);  
 </script>  </body>  
 </html> 
+
+    const noBtn = document.querySelector('#noBtn');
+
+noBtn.addEventListener('mouseover', () => {
+    // Calculate random coordinates
+    // window.innerWidth/Height is the screen size
+    // We subtract the button size so it doesn't go off-edge
+    const x = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
+    const y = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
+
+    // Apply the new coordinates
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+});
+
