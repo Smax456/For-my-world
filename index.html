@@ -271,6 +271,7 @@ from my heart.
 <audio id="voiceAudio" src="voice.mp3"></audio>    <!-- QUESTION SECTION -->  <div id="question" class="section hide">  
   <div class="frame">  
     <h1>Neeku ee gift nachinda 🥺🤌?</h1>  
+    <p>No ni click chesi chudu 😜</p>
     <div class="container">  
       <button id="yesBtn" onclick="next('final')">Yes!</button>  
       <button id="noBtn">No</button>  
@@ -387,9 +388,9 @@ setInterval(() => {
   const p = document.createElement("div");  
   p.className = "petal";  
   p.innerHTML = "🌸";  
-  p.style.left = Math.random() * 100 + "vw";  
-  p.style.fontSize = Math.random() * 20 + 10 + "px";  
+  p.style.left = Math.random() * 1 + "vw";  
+  p.style.fontSize = Math.random() * 2 + 1 + "px";  
   document.body.appendChild(p);  
-  setTimeout(() => p.remove(), 7000);  
-}, 800);  
+  setTimeout(() => p.remove(), 7);  
+}, 8);  
 </script>  
