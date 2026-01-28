@@ -12,16 +12,18 @@ body{
 }  
   
 /* COMMON */  
+  
   .container{
   position: relative;
-  width: 260px;
-  height: 160px;
-  margin: auto;
+  width: 280px;
+  height: 120px;
+  margin: 20px auto;
 }
 
 #noBtn{
   position: absolute;
 }
+
 .section{  
   min-height:100vh;  
   display:flex;  
@@ -321,21 +323,26 @@ function playVoice() {
 }
 
 /* NO BUTTON RUN AWAY 😈 */
-  function moveButton() {
-  const x = Math.random() * 180;
-  const y = Math.random() * 90;
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-  }
+  <script>
 const noBtn = document.getElementById("noBtn");
-if (noBtn) {
+const container = document.querySelector(".container");
+
+if (noBtn && container) {
   function moveButton() {
-    noBtn.style.left = Math.random() * 220 + "px";
-    noBtn.style.top = Math.random() * 140 + "px";
+    const maxX = container.clientWidth - noBtn.offsetWidth;
+    const maxY = container.clientHeight - noBtn.offsetHeight;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
   }
+
   noBtn.addEventListener("mouseenter", moveButton);
   noBtn.addEventListener("touchstart", moveButton);
 }
+</script>
 
 /* SLIDESHOW */
 let s = 0;
