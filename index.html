@@ -24,8 +24,28 @@ gap: 20px;
 overflow: hidden;
 }
 
-#noBtn{
-position: relative;
+  #yesBtn, #noBtn {
+  position: absolute;
+  padding: 12px 24px;
+  border-radius: 25px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* YES button fixed position */
+#yesBtn {
+  left: 35%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* NO button starting position */
+#noBtn {
+  left: 65%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .section{
@@ -318,9 +338,7 @@ const container = document.querySelector(".container");
 if (noBtn && container) {  
   function moveButton() {  
   const maxX = container.clientWidth - noBtn.offsetWidth;  
-  const maxY = container.clientHeight - noBtn.offsetHeight;  
-  
-  noBtn.style.position = "absolute"; // ⭐ THIS WAS MISSING  
+  const maxY = container.clientHeight - noBtn.offsetHeight;    
   
   const x = Math.random() * maxX;  
   const y = Math.random() * maxY;  
