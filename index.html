@@ -336,15 +336,17 @@ const container = document.querySelector(".container");
 
 if (noBtn && container) {
   function moveButton() {
-    const maxX = container.clientWidth - noBtn.offsetWidth;
-    const maxY = container.clientHeight - noBtn.offsetHeight;
+  const maxX = container.clientWidth - noBtn.offsetWidth;
+  const maxY = container.clientHeight - noBtn.offsetHeight;
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
+  noBtn.style.position = "absolute"; // ⭐ THIS WAS MISSING
 
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-  }
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
 
   noBtn.addEventListener("mouseenter", moveButton); // desktop
   noBtn.addEventListener("touchstart", moveButton); // mobile
