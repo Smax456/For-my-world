@@ -13,7 +13,7 @@ body{
   
 /* COMMON */  
   
- .container{
+.container{
   position: relative;
   width: 280px;
   height: 120px;
@@ -25,15 +25,14 @@ body{
   gap: 20px;
 
   overflow: hidden;
- } 
 }
 
 #noBtn{
   position: absolute;
   right: 20px;
   bottom: 10px;
-   } 
 }
+  
 
 .section{  
   min-height:100vh;  
@@ -342,17 +341,16 @@ if (noBtn && container) {
     const maxX = container.clientWidth - noBtn.offsetWidth;
     const maxY = container.clientHeight - noBtn.offsetHeight;
 
-    const x = Math.random() * (maxX - 10);
-const y = Math.random() * (maxY - 10);
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
 
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
   }
 
-
-  noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("click", moveButton);
- }
+  noBtn.addEventListener("mouseenter", moveButton); // desktop
+  noBtn.addEventListener("touchstart", moveButton); // mobile
+}
 
 /* SLIDESHOW */
 let s = 0;
